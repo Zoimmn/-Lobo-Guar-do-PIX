@@ -40,16 +40,3 @@ Para garantir a democratização do acesso e o funcionamento estável em disposi
 * **Interface de Usuário:** Sistema nativo de *Control Nodes* e *Containers* da Godot para responsividade automática em múltiplas resoluções de tela.
 
 ---
-
-## 📂 Estrutura do Repositório
-
-```text
-├── .godot/                # Arquivos de cache da engine
-├── src/
-│   ├── autoload/          # Scripts globais (GameManager.gd)
-│   ├── database/          # Conexão e esquemas do SQLite
-│   ├── scenes/            # Cenas do jogo (Menus, HUD, Eventos)
-│   └── scripts/           # Lógica comportamental e equações
-├── assets/                # Identidade visual (artes do Lobo-Guará) e fontes
-├── docs/                  # Artigo científico científico (SBC Template)
-└── README.md              # Documentação principal
