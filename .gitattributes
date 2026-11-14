@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.woff2 binary
+*.so binary
+*.dll binary
+*.png binary
+*.keystore binary
+addons/godot-sqlite/bin/** binary
+*.svg text eol=lf

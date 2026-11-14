@@ -1,0 +1,1567 @@
+[
+  {
+    "id": "boas_vindas",
+    "categoria": "tutorial",
+    "canal": "Mensagem",
+    "remetente": "Guará",
+    "titulo": "Bem-vindo ao corre",
+    "texto": "Eu sou o Guará e vou te acompanhar. O dinheiro entra e sai todo dia, mesmo sem você tocar em nada. Cada notificação que chegar aqui é uma decisão sua. A meta: juntar uma reserva de 6 meses dos seus custos fixos.",
+    "so_agenda": true,
+    "validade": 30,
+    "padrao": "ok",
+    "vacina": "reserva",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Entendi, bora",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Primeira dica: imprevisto não é exceção, é rotina. Quem tem reserva resolve com calma. Quem não tem, resolve com dívida."
+      }
+    ]
+  },
+  {
+    "id": "nota_mercado",
+    "categoria": "tutorial",
+    "canal": "Mensagem",
+    "remetente": "Guará",
+    "titulo": "Repara na nota do mercado",
+    "texto": "No fim do cupom fiscal aparece uma linha pequena: “valor aproximado dos tributos”. Em cada compra, uma parte do preço é imposto que você não vê. No extrato do jogo esse valor aparece em cada gasto.",
+    "so_agenda": true,
+    "validade": 30,
+    "padrao": "ok",
+    "vacina": "imposto_embutido",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Vou reparar",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "No fechamento de cada mês o relatório mostra quanto da sua renda foi embora em imposto embutido."
+      }
+    ]
+  },
+  {
+    "id": "mae_numero_novo",
+    "categoria": "golpe_pix",
+    "canal": "Mensagem",
+    "remetente": "Mãe (número novo)",
+    "titulo": "Filho, troquei de número",
+    "texto": "“Oi, é a mãe. Meu celular caiu na água, salva esse número. Preciso pagar um boleto que vence hoje e o aplicativo não abre. Me faz um PIX de R$ 350 que amanhã eu devolvo?”",
+    "peso": 1.0,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 4},
+    "padrao": "ignorar",
+    "vacina": "clonagem",
+    "escolhas": [
+      {
+        "id": "mandar",
+        "texto": "Fazer o PIX agora",
+        "tipo": "golpe",
+        "requer": {"saldo": 80},
+        "efeitos": {"perda": {"valor": 350}, "estresse": 7},
+        "resultado": "O PIX foi. Uma hora depois sua mãe liga do número de sempre: ela não pediu nada. O perfil era clonado e o dinheiro não volta."
+      },
+      {
+        "id": "ligar",
+        "texto": "Ligar para o número antigo",
+        "tipo": "segura",
+        "efeitos": {"estresse": -1},
+        "resultado": "Sua mãe atende no número de sempre, sem entender nada. Era golpe. Você avisa a família para ninguém cair."
+      },
+      {
+        "id": "ignorar",
+        "texto": "Ignorar a mensagem",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Você não respondeu. Era um perfil clonado tentando a sorte."
+      }
+    ]
+  },
+  {
+    "id": "falsa_central",
+    "categoria": "golpe_pix",
+    "canal": "Ligação",
+    "remetente": "Central de Segurança",
+    "titulo": "Compra suspeita na sua conta",
+    "texto": "“Aqui é da central de segurança do seu banco. Identificamos uma compra de R$ 1.890 em outro estado. Para bloquear, preciso que você transfira o saldo para uma conta segura agora, antes que a compra seja aprovada.”",
+    "tempo": 25,
+    "peso": 0.9,
+    "espera": 70,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 12, "saldo_min": 150},
+    "padrao": "desligar",
+    "vacina": "autoridade",
+    "escolhas": [
+      {
+        "id": "transferir",
+        "texto": "Transferir para a conta segura",
+        "tipo": "golpe",
+        "efeitos": {"perda": {"pct": 0.8, "min": 100, "max": 3000}, "estresse": 9},
+        "resultado": "Não existia compra nenhuma. A “conta segura” era do golpista e o seu saldo foi junto."
+      },
+      {
+        "id": "desligar",
+        "texto": "Desligar e ligar para o banco",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Você liga para o número que está no aplicativo. Nenhuma compra suspeita. Banco nenhum pede transferência por telefone."
+      }
+    ]
+  },
+  {
+    "id": "pix_engano",
+    "categoria": "golpe_pix",
+    "canal": "Mensagem",
+    "remetente": "Número desconhecido",
+    "titulo": "Te mandei um PIX por engano",
+    "texto": "Caiu um PIX de R$ 280 na sua conta. Logo depois: “Moço, errei a chave, era para a minha irmã. Me devolve nessa outra chave aqui, por favor? Estou desesperada.”",
+    "ao_chegar": {"saldo": 280, "cat": "outros", "rotulo": "PIX recebido de desconhecido"},
+    "peso": 0.9,
+    "espera": 80,
+    "max_vezes": 1,
+    "condicoes": {"dia_min": 8},
+    "padrao": "botao",
+    "vacina": "pix_engano",
+    "escolhas": [
+      {
+        "id": "nova_chave",
+        "texto": "Mandar PIX para a chave que ela passou",
+        "tipo": "golpe",
+        "efeitos": {"saldo": -280, "cat": "golpe", "rotulo": "PIX para chave de terceiro", "agenda": [{"evento": "pix_engano_estorno", "dias": 3}]},
+        "resultado": "Você mandou os R$ 280 para a outra chave. Parecia a coisa certa a fazer. O problema é que o PIX original ainda pode ser contestado."
+      },
+      {
+        "id": "botao",
+        "texto": "Devolver pelo botão “Devolver” do PIX",
+        "tipo": "segura",
+        "efeitos": {"saldo": -280, "cat": "outros", "rotulo": "Devolução de PIX"},
+        "resultado": "O dinheiro voltou para a conta de origem pelo próprio PIX recebido. Sem risco para você."
+      },
+      {
+        "id": "ficar",
+        "texto": "Ficar com o dinheiro",
+        "tipo": "arriscada",
+        "efeitos": {"estresse": 3, "agenda": [{"evento": "pix_engano_estorno", "dias": 4}]},
+        "resultado": "Você ficou quieto. Dinheiro que cai por engano não é seu: ficar com ele é crime de apropriação."
+      }
+    ]
+  },
+  {
+    "id": "pix_engano_estorno",
+    "categoria": "golpe_pix",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "PIX contestado e estornado",
+    "texto": "“O PIX de R$ 280 que você recebeu foi contestado na instituição de origem. O valor foi devolvido ao pagador e debitado da sua conta.”",
+    "so_agenda": true,
+    "validade": 2,
+    "padrao": "ok",
+    "vacina": "pix_engano",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Entendi",
+        "tipo": "neutra",
+        "efeitos": {"saldo": -280, "cat": "golpe", "rotulo": "Estorno de PIX contestado", "estresse": 5},
+        "resultado": "Quem devolveu por outra chave pagou duas vezes. Devolução de PIX se faz só pelo botão “Devolver” do próprio recebimento."
+      }
+    ]
+  },
+  {
+    "id": "sms_bloqueio",
+    "categoria": "golpe_pix",
+    "canal": "SMS",
+    "remetente": "29187",
+    "titulo": "Sua conta será bloqueada",
+    "texto": "“BANCO: identificamos acesso irregular. Sua conta será BLOQUEADA em 30 minutos. Regularize agora: banco-seguranca-atualiza.com/login”",
+    "tempo": 20,
+    "peso": 0.9,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 15, "saldo_min": 60},
+    "padrao": "apagar",
+    "vacina": "phishing",
+    "escolhas": [
+      {
+        "id": "clicar",
+        "texto": "Clicar e regularizar",
+        "tipo": "golpe",
+        "efeitos": {"perda": {"pct": 0.5, "min": 60, "max": 1500}, "estresse": 7},
+        "resultado": "A página era idêntica à do banco. Você digitou a senha e, minutos depois, saiu um PIX que não era seu."
+      },
+      {
+        "id": "app",
+        "texto": "Abrir o aplicativo oficial e conferir",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "No aplicativo estava tudo normal. O link levava a uma página falsa feita para copiar a sua senha."
+      },
+      {
+        "id": "apagar",
+        "texto": "Apagar o SMS",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "SMS apagado. Banco não manda link para “regularizar” conta."
+      }
+    ]
+  },
+  {
+    "id": "vaga_taxa",
+    "categoria": "golpe_pix",
+    "canal": "Mensagem",
+    "remetente": "RH Seleção Express",
+    "titulo": "Você foi selecionado!",
+    "texto": "“Parabéns! Seu perfil foi aprovado para auxiliar de estoque, R$ 2.400 mais benefícios, início imediato. Para garantir a vaga, pague hoje a taxa de R$ 120 do curso de integração.”",
+    "peso": 1.0,
+    "espera": 70,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 10, "vinculo": ["informal", "pj"]},
+    "padrao": "ignorar",
+    "vacina": "taxa_antecipada",
+    "escolhas": [
+      {
+        "id": "pagar",
+        "texto": "Pagar a taxa e garantir a vaga",
+        "tipo": "golpe",
+        "requer": {"saldo": 120},
+        "efeitos": {"saldo": -120, "cat": "golpe", "estresse": 5},
+        "resultado": "Depois do PIX, o “RH” parou de responder e o perfil sumiu. A vaga nunca existiu."
+      },
+      {
+        "id": "pesquisar",
+        "texto": "Pesquisar a empresa antes",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Você procura o nome da empresa e encontra dezenas de relatos do mesmo golpe. Empresa séria não cobra para contratar."
+      },
+      {
+        "id": "ignorar",
+        "texto": "Ignorar",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Você deixou passar. Vaga que cobra taxa não é vaga."
+      }
+    ]
+  },
+  {
+    "id": "tarefas_pagas",
+    "categoria": "golpe_pix",
+    "canal": "Mensagem",
+    "remetente": "Recrutadora Bia",
+    "titulo": "Renda extra curtindo vídeos",
+    "texto": "“Oi! Trabalho com marketing digital. Pagamos de R$ 80 a R$ 150 por dia para curtir vídeos. Sem experiência, pelo celular, PIX na hora. Quer testar com 3 tarefas grátis?”",
+    "fomo": 0.5,
+    "peso": 0.9,
+    "espera": 80,
+    "max_vezes": 1,
+    "condicoes": {"dia_min": 18},
+    "padrao": "ignorar",
+    "vacina": "piramide",
+    "escolhas": [
+      {
+        "id": "testar",
+        "texto": "Testar as 3 tarefas",
+        "tipo": "arriscada",
+        "efeitos": {"saldo": 18, "cat": "outros", "rotulo": "PIX das tarefas", "agenda": [{"evento": "tarefas_deposito", "dias": 3}]},
+        "resultado": "Você curtiu três vídeos e caíram R$ 18 de verdade. Parece que funciona."
+      },
+      {
+        "id": "denunciar",
+        "texto": "Bloquear e denunciar",
+        "tipo": "segura",
+        "efeitos": {"interesse": {"influencer": -0.3}},
+        "resultado": "Bloqueado. Esse é o golpe das tarefas: paga pouco no começo para pedir um depósito depois."
+      },
+      {
+        "id": "ignorar",
+        "texto": "Ignorar",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Você não respondeu."
+      }
+    ]
+  },
+  {
+    "id": "tarefas_deposito",
+    "categoria": "golpe_pix",
+    "canal": "Mensagem",
+    "remetente": "Recrutadora Bia",
+    "titulo": "Missão VIP liberada",
+    "texto": "“Você foi promovido para as tarefas VIP! Deposite R$ 200 para ativar e saque R$ 640 ainda hoje. Só restam 4 vagas no grupo.”",
+    "tempo": 20,
+    "so_agenda": true,
+    "padrao": "sair",
+    "vacina": "piramide",
+    "escolhas": [
+      {
+        "id": "depositar",
+        "texto": "Depositar os R$ 200",
+        "tipo": "golpe",
+        "requer": {"saldo": 200},
+        "efeitos": {"saldo": -200, "cat": "golpe", "estresse": 6},
+        "resultado": "Depois do depósito apareceu uma nova “taxa de liberação”. Os R$ 18 do começo eram a isca. Os R$ 200 não voltam."
+      },
+      {
+        "id": "sair",
+        "texto": "Sair do grupo",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Você saiu com os R$ 18 e sem prejuízo. Quem depositou ficou esperando um saque que nunca veio."
+      }
+    ]
+  },
+  {
+    "id": "loja_fake",
+    "categoria": "golpe_pix",
+    "canal": "Rede social",
+    "remetente": "Anúncio patrocinado",
+    "titulo": "Queima de estoque: 80% off",
+    "texto": "Tênis original por R$ 149 (de R$ 749). Loja nova, perfil criado há duas semanas, comentários desativados. Pagamento só por PIX. “Últimos pares!”",
+    "tempo": 20,
+    "fomo": 0.6,
+    "peso": 0.9,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 14, "saldo_min": 149},
+    "padrao": "passar",
+    "vacina": "bom_demais",
+    "escolhas": [
+      {
+        "id": "comprar",
+        "texto": "Comprar por PIX (R$ 149)",
+        "tipo": "golpe",
+        "requer": {"saldo": 149},
+        "efeitos": {"saldo": -149, "cat": "golpe", "estresse": 4, "cedeu": true},
+        "resultado": "O código de rastreio nunca funcionou e o perfil saiu do ar. PIX para loja falsa dificilmente volta."
+      },
+      {
+        "id": "pesquisar",
+        "texto": "Pesquisar a loja antes",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "CNPJ aberto há um mês, nenhuma avaliação e reclamações de quem pagou e não recebeu. Você fecha a aba."
+      },
+      {
+        "id": "passar",
+        "texto": "Deixar passar",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "A oferta sumiu do feed."
+      }
+    ]
+  },
+  {
+    "id": "comprovante_falso",
+    "categoria": "golpe_pix",
+    "canal": "Vida real",
+    "remetente": "Cliente na portaria",
+    "titulo": "“Já fiz o PIX, olha aqui”",
+    "texto": "Entrega com pagamento na porta: R$ 64. O cliente mostra na tela um comprovante de PIX e pede o pedido com pressa. No seu aplicativo ainda não caiu nada.",
+    "tempo": 18,
+    "peso": 1.0,
+    "espera": 50,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 6, "vinculo": ["informal"]},
+    "padrao": "conferir",
+    "vacina": "comprovante",
+    "escolhas": [
+      {
+        "id": "entregar",
+        "texto": "Entregar, o comprovante está ali",
+        "tipo": "golpe",
+        "efeitos": {"saldo": -64, "cat": "golpe", "rotulo": "Pedido descontado de você", "estresse": 4},
+        "resultado": "O PIX estava agendado e foi cancelado depois. O restaurante descontou os R$ 64 de você."
+      },
+      {
+        "id": "conferir",
+        "texto": "Esperar cair no aplicativo",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Você espera um minuto. Não cai. O cliente resmunga e então faz o PIX de verdade."
+      }
+    ]
+  },
+  {
+    "id": "suporte_falso",
+    "categoria": "golpe_pix",
+    "canal": "Ligação",
+    "remetente": "Suporte do aplicativo",
+    "titulo": "Sua conta de entregador será desativada",
+    "texto": "“Recebemos uma reclamação grave contra você. Para não perder a conta, me informe o código de seis dígitos que acabou de chegar por SMS.”",
+    "tempo": 20,
+    "peso": 0.9,
+    "espera": 70,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 20, "vinculo": ["informal"], "saldo_min": 80},
+    "padrao": "desligar",
+    "vacina": "autoridade",
+    "escolhas": [
+      {
+        "id": "informar",
+        "texto": "Informar o código",
+        "tipo": "golpe",
+        "efeitos": {"perda": {"pct": 0.5, "min": 60, "max": 800}, "dias_sem_renda": 2, "estresse": 7},
+        "resultado": "Com o código, o golpista entrou na sua conta, trocou a chave PIX e sacou os ganhos da semana. Você levou dois dias para recuperar o acesso."
+      },
+      {
+        "id": "desligar",
+        "texto": "Desligar e falar pelo chat do aplicativo",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "No chat oficial não havia reclamação nenhuma. Código de verificação não se passa para ninguém."
+      }
+    ]
+  },
+  {
+    "id": "amigo_print",
+    "categoria": "bets",
+    "canal": "Mensagem",
+    "remetente": "Dudu",
+    "titulo": "OLHA ISSO, MANO",
+    "texto": "Dudu manda o print de um saque de R$ 820 numa bet. “Botei R$ 20 no jogo de ontem. Tá dando dinheiro fácil, entra com o meu código que você ganha bônus.”",
+    "fomo": 1.0,
+    "peso": 1.2,
+    "espera": 35,
+    "max_vezes": 3,
+    "condicoes": {"dia_min": 7},
+    "padrao": "ignorar",
+    "vacina": "vies_sobrevivencia",
+    "escolhas": [
+      {
+        "id": "apostar",
+        "texto": "Entrar e apostar R$ 30",
+        "tipo": "arriscada",
+        "requer": {"saldo": 30},
+        "efeitos": {"aposta": {"valor": 30, "prob": 0.3, "mult": 2.6, "prob_primeira": 0.8}, "cedeu": true, "interesse": {"bets": 0.6}, "agenda": [{"evento": "bet_recuperar", "dias": 4}]},
+        "resultado_ganhou": "Deu green. O dinheiro caiu na hora e a sensação é ótima. O aplicativo já sugere a próxima aposta.",
+        "resultado_perdeu": "Red. Os R$ 30 foram embora em noventa minutos de jogo."
+      },
+      {
+        "id": "perguntar",
+        "texto": "Perguntar quanto ele já perdeu",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Dudu demora para responder. “Ah, uns R$ 1.500 no ano… mas agora peguei o jeito.” O print mostrava só o dia bom."
+      },
+      {
+        "id": "ignorar",
+        "texto": "Mandar um joinha e seguir a vida",
+        "tipo": "neutra",
+        "efeitos": {"resistiu": true},
+        "resultado": "Você não entrou. A vontade de não ficar de fora ainda incomoda um pouco."
+      }
+    ]
+  },
+  {
+    "id": "influencer_onca",
+    "categoria": "bets",
+    "canal": "Rede social",
+    "remetente": "@juh.rendaextra",
+    "titulo": "“Fiz R$ 3 mil antes do almoço”",
+    "texto": "A influenciadora mostra o celular: um joguinho de onça pagando sem parar. “Plataforma nova, tá soltando muito. Link nos stories, só hoje com bônus de R$ 100.”",
+    "tempo": 15,
+    "fomo": 1.1,
+    "peso": 1.2,
+    "espera": 35,
+    "max_vezes": 3,
+    "condicoes": {"dia_min": 10},
+    "padrao": "passar",
+    "vacina": "isca_inicial",
+    "escolhas": [
+      {
+        "id": "depositar",
+        "texto": "Depositar R$ 50 pelo link",
+        "tipo": "arriscada",
+        "requer": {"saldo": 50},
+        "efeitos": {"aposta": {"valor": 50, "prob": 0.22, "mult": 3.0, "prob_primeira": 0.75}, "cedeu": true, "interesse": {"bets": 0.7}, "agenda": [{"evento": "bet_bonus", "dias": 2}]},
+        "resultado_ganhou": "A onça pagou logo na terceira rodada. Parece mesmo fácil.",
+        "resultado_perdeu": "Vinte rodadas e nada. A conta de demonstração dela não é igual à sua."
+      },
+      {
+        "id": "silenciar",
+        "texto": "Silenciar o perfil",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true, "interesse": {"bets": -0.5, "influencer": -0.3}},
+        "vacina": "algoritmo",
+        "resultado": "Perfil silenciado. Muitos divulgadores recebem por cadastro ou por uma parte do que os seguidores perdem: o vídeo é propaganda, não resultado."
+      },
+      {
+        "id": "passar",
+        "texto": "Passar para o próximo story",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Você passou. O algoritmo anotou que você assistiu até o fim."
+      }
+    ]
+  },
+  {
+    "id": "bet_bonus",
+    "categoria": "bets",
+    "canal": "Notificação",
+    "remetente": "Onça da Sorte",
+    "titulo": "Seu bônus de R$ 100 está esperando",
+    "texto": "“Você tem R$ 100 de bônus! Para liberar o saque, aposte 10 vezes o valor do bônus em até 24 horas.”",
+    "tempo": 20,
+    "fomo": 0.6,
+    "so_agenda": true,
+    "padrao": "desistir",
+    "vacina": "isca_inicial",
+    "escolhas": [
+      {
+        "id": "cumprir",
+        "texto": "Depositar R$ 100 para cumprir a meta",
+        "tipo": "arriscada",
+        "requer": {"saldo": 100},
+        "efeitos": {"aposta": {"valor": 100, "prob": 0.12, "mult": 2.0}, "cedeu": true, "interesse": {"bets": 0.6}, "agenda": [{"evento": "bet_recuperar", "dias": 2}]},
+        "resultado_ganhou": "Você cumpriu a meta por pouco e sacou. Foi sorte: a regra existe para quase ninguém conseguir.",
+        "resultado_perdeu": "O bônus e o depósito acabaram antes de você chegar à metade da meta. Era esse o plano da plataforma."
+      },
+      {
+        "id": "desistir",
+        "texto": "Abrir mão do bônus",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Bônus com meta de apostas é isca. Bets autorizadas no Brasil usam o domínio .bet.br e não podem oferecer bônus de entrada."
+      }
+    ]
+  },
+  {
+    "id": "bet_recuperar",
+    "categoria": "bets",
+    "canal": "Notificação",
+    "remetente": "Aplicativo de apostas",
+    "titulo": "Faltou pouco! Recupere hoje",
+    "texto": "“Odds turbinadas no clássico de hoje. Dobre a aposta e recupere o que ficou para trás. Oferta válida por 15 minutos.”",
+    "tempo": 15,
+    "fomo": 0.9,
+    "so_agenda": true,
+    "condicoes": {"flag": "ja_apostou"},
+    "padrao": "fechar",
+    "vacina": "recuperar_perda",
+    "escolhas": [
+      {
+        "id": "dobrar",
+        "texto": "Apostar R$ 80 para recuperar",
+        "tipo": "arriscada",
+        "requer": {"saldo": 80},
+        "efeitos": {"aposta": {"valor": 80, "prob": 0.3, "mult": 2.2}, "cedeu": true, "interesse": {"bets": 0.7}, "agenda": [{"evento": "bet_salario", "dias": 6}]},
+        "resultado_ganhou": "Dessa vez deu. O cérebro registra: “viu, dá para recuperar”. É assim que o ciclo continua.",
+        "resultado_perdeu": "Não recuperou: dobrou o prejuízo. A aposta anterior não muda em nada a chance da seguinte."
+      },
+      {
+        "id": "fechar",
+        "texto": "Fechar o aplicativo",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Você fechou. Aceitar que o dinheiro perdido foi embora é a jogada mais difícil e a mais barata."
+      },
+      {
+        "id": "desinstalar",
+        "texto": "Desinstalar e desativar notificações",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true, "interesse": {"bets": -1.0}},
+        "vacina": "algoritmo",
+        "resultado": "Aplicativo apagado. Sem notificação, a vontade aparece muito menos."
+      }
+    ]
+  },
+  {
+    "id": "bet_salario",
+    "categoria": "bets",
+    "canal": "Notificação",
+    "remetente": "Aplicativo de apostas",
+    "titulo": "Dia de pagamento? Dia de multiplicar",
+    "texto": "“Rodada especial: quem depositar R$ 150 hoje concorre a prêmios em dobro.” A notificação chegou bem no dia em que o seu saldo subiu.",
+    "tempo": 15,
+    "fomo": 0.8,
+    "peso": 1.0,
+    "espera": 25,
+    "condicoes": {"flag": "ja_apostou", "saldo_min": 400},
+    "padrao": "ignorar",
+    "vacina": "casa_vence",
+    "escolhas": [
+      {
+        "id": "depositar",
+        "texto": "Depositar R$ 150",
+        "tipo": "arriscada",
+        "requer": {"saldo": 150},
+        "efeitos": {"aposta": {"valor": 150, "prob": 0.28, "mult": 2.4}, "cedeu": true, "interesse": {"bets": 0.8}},
+        "resultado_ganhou": "Você ganhou desta vez. Somando o ano inteiro, a conta de quem aposta sempre fecha negativa.",
+        "resultado_perdeu": "R$ 150 a menos, antes de pagar qualquer conta do mês."
+      },
+      {
+        "id": "ignorar",
+        "texto": "Ignorar",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "A casa calcula as odds para ficar com uma parte de tudo que é apostado. No longo prazo, só ela ganha."
+      }
+    ]
+  },
+  {
+    "id": "grupo_palpites",
+    "categoria": "bets",
+    "canal": "Mensagem",
+    "remetente": "Grupo Green Garantido",
+    "titulo": "Palpites VIP: 92% de acerto",
+    "texto": "“Assinatura do grupo VIP por R$ 49. Nossos analistas acertaram 23 dos últimos 25 jogos. Quem entrou no mês passado triplicou a banca.”",
+    "fomo": 0.7,
+    "peso": 0.8,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 20},
+    "padrao": "sair",
+    "vacina": "casa_vence",
+    "escolhas": [
+      {
+        "id": "assinar",
+        "texto": "Assinar por R$ 49",
+        "tipo": "golpe",
+        "requer": {"saldo": 49},
+        "efeitos": {"saldo": -49, "cat": "golpe", "cedeu": true, "interesse": {"bets": 0.5}},
+        "resultado": "Os palpites erram tanto quanto qualquer chute. Quem vende palpite ganha na assinatura, não na aposta."
+      },
+      {
+        "id": "sair",
+        "texto": "Sair do grupo",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true, "interesse": {"bets": -0.3}},
+        "resultado": "Se alguém acertasse 92% dos jogos, não venderia a dica por R$ 49."
+      }
+    ]
+  },
+  {
+    "id": "drop_tenis",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "@leo.streetwear",
+    "titulo": "DROP LIBERADO: só 200 pares",
+    "texto": "O tênis que todo mundo está postando acabou de sair. “Restam 14 pares no seu tamanho.” R$ 650, ou 10x de R$ 65 no cartão.",
+    "tempo": 15,
+    "fomo": 1.2,
+    "peso": 1.1,
+    "espera": 45,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 16, "cartao": true},
+    "padrao": "esperar",
+    "vacina": "escassez",
+    "escolhas": [
+      {
+        "id": "comprar",
+        "texto": "Comprar em 10x de R$ 65",
+        "tipo": "arriscada",
+        "requer": {"limite": 650},
+        "efeitos": {"cartao": 650, "parcelas": 10, "imposto": "vestuario", "bem": "tenis_hype", "cedeu": true, "estresse": -3, "interesse": {"influencer": 0.6}},
+        "resultado": "Pedido confirmado. A alegria dura uns dias. As parcelas, dez meses."
+      },
+      {
+        "id": "esperar",
+        "texto": "Esperar 24 horas para decidir",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "No dia seguinte o tênis continua disponível, em todos os tamanhos. O “restam 14” era parte do anúncio."
+      }
+    ]
+  },
+  {
+    "id": "celular_todo_mundo",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "Seu feed",
+    "titulo": "Todo mundo trocou de celular",
+    "texto": "Três amigos postaram o celular novo na mesma semana. A loja te mostra o anúncio: R$ 1.800 em 12x de R$ 150, “sem juros”. O seu funciona, mas está velho.",
+    "fomo": 1.0,
+    "peso": 1.0,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 25, "cartao": true, "sem_bem": ["celular_top"]},
+    "padrao": "manter",
+    "vacina": "prova_social",
+    "escolhas": [
+      {
+        "id": "parcelar",
+        "texto": "Parcelar em 12x de R$ 150",
+        "tipo": "arriscada",
+        "requer": {"limite": 1800},
+        "efeitos": {"cartao": 1800, "parcelas": 12, "imposto": "eletronicos", "bem": "celular_top", "cedeu": true, "estresse": -4, "interesse": {"influencer": 0.6}},
+        "resultado": "Celular novo na mão. São R$ 150 por mês durante um ano, quer o mês seja bom ou ruim."
+      },
+      {
+        "id": "manter",
+        "texto": "Ficar com o que funciona",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "O feed mostra a compra de cada um, nunca a fatura. Seu plano continua de pé."
+      }
+    ]
+  },
+  {
+    "id": "mentoria_riqueza",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "@mestre.dos.milhoes",
+    "titulo": "O método que me tirou do zero",
+    "texto": "Carro alugado ao fundo, planilha na tela. “Em 30 dias você faz seu primeiro R$ 10 mil. A turma fecha HOJE à meia-noite: de R$ 1.997 por R$ 297.”",
+    "tempo": 20,
+    "fomo": 0.9,
+    "peso": 1.0,
+    "espera": 50,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 12},
+    "padrao": "passar",
+    "vacina": "atalho",
+    "escolhas": [
+      {
+        "id": "comprar",
+        "texto": "Garantir a vaga por R$ 297",
+        "tipo": "golpe",
+        "requer": {"saldo": 297},
+        "efeitos": {"saldo": -297, "cat": "golpe", "cedeu": true, "interesse": {"influencer": 0.6}},
+        "resultado": "Dez vídeos gravados dizendo para “ter mentalidade” e revender o próprio curso. A turma, claro, reabriu na semana seguinte."
+      },
+      {
+        "id": "passar",
+        "texto": "Passar adiante",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Quem tem um método para ficar rico não precisa vendê-lo por R$ 297 com contagem regressiva."
+      }
+    ]
+  },
+  {
+    "id": "cripto_meme",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "Grupo Cripto Alpha",
+    "titulo": "GUARÁCOIN vai 100x",
+    "texto": "“Moeda nova, subiu 400% em dois dias. Quem entrar agora pega o foguete. Depois não diga que não avisei.” O gráfico só sobe.",
+    "tempo": 20,
+    "fomo": 1.0,
+    "peso": 0.9,
+    "espera": 55,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 22, "saldo_min": 200},
+    "padrao": "passar",
+    "vacina": "atalho",
+    "escolhas": [
+      {
+        "id": "entrar",
+        "texto": "Colocar R$ 200",
+        "tipo": "arriscada",
+        "requer": {"saldo": 200},
+        "efeitos": {"aposta": {"valor": 200, "prob": 0.12, "mult": 3.5, "rotulo": "Compra de GUARÁCOIN", "rotulo_premio": "Venda de GUARÁCOIN", "especulacao": true}, "cedeu": true, "interesse": {"influencer": 0.6}},
+        "resultado_ganhou": "Você vendeu no susto antes da queda e saiu no lucro. A maioria do grupo não teve a mesma sorte.",
+        "resultado_perdeu": "Os criadores venderam tudo no topo e a moeda caiu 95% em uma hora. O que sobrou nem compensa sacar."
+      },
+      {
+        "id": "pesquisar",
+        "texto": "Pesquisar quem está por trás",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Sem equipe conhecida, sem projeto, só promessa. Quando a dica chega em grupo de mensagem, quem avisou já está vendendo."
+      },
+      {
+        "id": "passar",
+        "texto": "Passar",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Você não entrou. Dois dias depois, ninguém mais fala da moeda."
+      }
+    ]
+  },
+  {
+    "id": "role_festival",
+    "categoria": "influencer",
+    "canal": "Mensagem",
+    "remetente": "Grupo da galera",
+    "titulo": "Festival no sábado: todo mundo vai",
+    "texto": "“Ingresso do último lote, R$ 320. Quem não for vai ficar só vendo os stories.” Faz tempo que você não sai, e a semana foi pesada.",
+    "fomo": 0.9,
+    "peso": 1.1,
+    "espera": 40,
+    "max_vezes": 3,
+    "condicoes": {"dia_min": 9},
+    "padrao": "nao_ir",
+    "vacina": "prova_social",
+    "escolhas": [
+      {
+        "id": "ir",
+        "texto": "Ir ao festival (R$ 320)",
+        "tipo": "arriscada",
+        "requer": {"saldo_ou_limite": 320},
+        "efeitos": {"gasto": 320, "imposto": "lazer", "cedeu": true, "estresse": -7},
+        "resultado": "Foi incrível. Lazer faz parte da vida, mas este custou quase uma semana do seu trabalho."
+      },
+      {
+        "id": "alternativa",
+        "texto": "Propor um churrasco na laje (R$ 45)",
+        "tipo": "segura",
+        "requer": {"saldo": 45},
+        "efeitos": {"saldo": -45, "cat": "consumo", "imposto": "lazer", "rotulo": "Churrasco na laje", "resistiu": true, "alivio_fomo": 0.7, "estresse": -5},
+        "resultado": "Metade do grupo topou na hora: ninguém queria gastar R$ 320. Rendeu risada e sobrou dinheiro."
+      },
+      {
+        "id": "nao_ir",
+        "texto": "Ficar em casa",
+        "tipo": "neutra",
+        "efeitos": {"estresse": 1.5},
+        "resultado": "Você economizou, mas passou a noite vendo os stories. Cortar todo lazer também cobra um preço."
+      }
+    ]
+  },
+  {
+    "id": "black_fraude",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "Mega Ofertas",
+    "titulo": "BLACK FRIDAY: 50% OFF",
+    "texto": "Fone sem fio “de R$ 499 por R$ 249”, cronômetro piscando: 09:58… 09:57… Você lembra de ter visto esse fone por R$ 259 no mês passado.",
+    "tempo": 20,
+    "fomo": 0.8,
+    "peso": 2.5,
+    "espera": 20,
+    "max_vezes": 1,
+    "condicoes": {"mes": ["Novembro"]},
+    "padrao": "conferir",
+    "vacina": "ancoragem",
+    "escolhas": [
+      {
+        "id": "comprar",
+        "texto": "Aproveitar por R$ 249",
+        "tipo": "arriscada",
+        "requer": {"saldo_ou_limite": 249},
+        "efeitos": {"gasto": 249, "imposto": "eletronicos", "bem": "fone_hype", "cedeu": true, "estresse": -2},
+        "resultado": "Você comprou. O “desconto” era de R$ 10: o preço cheio foi inflado dias antes. Metade do dobro."
+      },
+      {
+        "id": "conferir",
+        "texto": "Conferir o histórico de preço",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "O histórico mostra R$ 259 durante o ano todo. O “de R$ 499” nunca existiu."
+      }
+    ]
+  },
+  {
+    "id": "stories_ostentacao",
+    "categoria": "influencer",
+    "canal": "Rede social",
+    "remetente": "Seu feed",
+    "titulo": "Uma noite de stories",
+    "texto": "Viagem, carro novo, jantar caro, “mais um mês batendo meta”. Uma hora rolando o feed e a sua vida parece pequena. Ninguém postou o boleto.",
+    "fomo": 1.3,
+    "peso": 1.2,
+    "espera": 20,
+    "condicoes": {"dia_min": 5},
+    "padrao": "continuar",
+    "vacina": "prova_social",
+    "escolhas": [
+      {
+        "id": "silenciar",
+        "texto": "Silenciar esses perfis por 30 dias",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true, "alivio_fomo": 0.6, "interesse": {"influencer": -0.6}},
+        "vacina": "algoritmo",
+        "resultado": "Feed mais calmo. Você decide o que o algoritmo mostra: silenciar também é uma forma de treinar o aplicativo."
+      },
+      {
+        "id": "continuar",
+        "texto": "Continuar rolando",
+        "tipo": "neutra",
+        "efeitos": {"estresse": 1.5, "interesse": {"influencer": 0.3}},
+        "resultado": "Mais quarenta minutos de feed. Você dorme tarde, comparando a sua rotina com o melhor momento dos outros."
+      }
+    ]
+  },
+  {
+    "id": "cupom_delivery",
+    "categoria": "influencer",
+    "canal": "Notificação",
+    "remetente": "Aplicativo de comida",
+    "titulo": "Cupom de R$ 15 expira em 10 minutos",
+    "texto": "“Bateu a fome? Seu cupom some em 10 minutos.” Tem comida em casa, mas o hambúrguer da foto está bonito. Com o cupom, sai por R$ 38.",
+    "tempo": 12,
+    "fomo": 0.4,
+    "peso": 1.0,
+    "espera": 15,
+    "condicoes": {"dia_min": 3, "saldo_min": 38},
+    "padrao": "cozinhar",
+    "vacina": "escassez",
+    "escolhas": [
+      {
+        "id": "pedir",
+        "texto": "Pedir (R$ 38)",
+        "tipo": "neutra",
+        "requer": {"saldo": 38},
+        "efeitos": {"saldo": -38, "cat": "consumo", "imposto": "alimentacao", "rotulo": "Lanche por aplicativo", "cedeu": true, "estresse": -1.5},
+        "resultado": "Estava bom. Um pedido não quebra ninguém; o que pesa é o cupom que chega três vezes por semana."
+      },
+      {
+        "id": "cozinhar",
+        "texto": "Fazer comida em casa",
+        "tipo": "segura",
+        "efeitos": {"resistiu": true},
+        "resultado": "Arroz, ovo e o que tinha na geladeira. O cupom “que ia expirar” voltou no dia seguinte."
+      }
+    ]
+  },
+  {
+    "id": "oferta_cartao",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "Seu cartão de crédito foi aprovado",
+    "texto": "“Parabéns! Cartão sem anuidade com limite de R$ 700. Ative agora e parcele o que quiser.” Cartão ajuda numa emergência e parcela sem juros, mas a fatura que não é paga inteira vira a dívida mais cara do país.",
+    "so_agenda": true,
+    "validade": 6,
+    "max_vezes": 4,
+    "condicoes": {"cartao": false},
+    "padrao": "depois",
+    "vacina": "credito_facil",
+    "escolhas": [
+      {
+        "id": "ativar",
+        "texto": "Ativar o cartão",
+        "tipo": "neutra",
+        "efeitos": {"liberar_cartao": 700, "interesse": {"credito": 0.3}},
+        "resultado": "Cartão ativo. A fatura fecha no dia 25 e vence no dia 5. Limite não é renda: tudo que passar nele sai do seu dinheiro do mês seguinte."
+      },
+      {
+        "id": "depois",
+        "texto": "Agora não",
+        "tipo": "neutra",
+        "efeitos": {"agenda": [{"evento": "oferta_cartao", "dias": 25}]},
+        "resultado": "Você recusou por enquanto. O banco vai oferecer de novo."
+      }
+    ]
+  },
+  {
+    "id": "cheque_liberado",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "Limite de R$ 300 na sua conta",
+    "texto": "“Liberamos R$ 300 de limite na sua conta. Se o saldo acabar, você continua pagando normalmente.” Esse limite é o cheque especial: conta negativa paga 8% de juros ao mês.",
+    "so_agenda": true,
+    "validade": 5,
+    "padrao": "ok",
+    "vacina": "cheque_especial",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Manter o limite",
+        "tipo": "neutra",
+        "efeitos": {"flag": "cheque"},
+        "resultado": "Limite ativo. Se faltar saldo, as contas passam mesmo assim e a conta fica negativa, com juros todos os dias."
+      },
+      {
+        "id": "desativar",
+        "texto": "Pedir para desativar",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Limite desativado. Se faltar saldo, a conta simplesmente não é paga: você vê o problema na hora, em vez de escondê-lo debaixo de juros."
+      }
+    ]
+  },
+  {
+    "id": "aumento_limite",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "Seu limite pode aumentar",
+    "texto": "“Você é um cliente especial! Aumente seu limite em R$ 500 com um toque.” Nada mudou na sua renda desde o mês passado.",
+    "peso": 1.0,
+    "espera": 40,
+    "max_vezes": 4,
+    "condicoes": {"dia_min": 35, "cartao": true},
+    "padrao": "recusar",
+    "vacina": "credito_facil",
+    "escolhas": [
+      {
+        "id": "aceitar",
+        "texto": "Aumentar o limite",
+        "tipo": "arriscada",
+        "efeitos": {"limite": 500, "interesse": {"credito": 0.5}},
+        "resultado": "Limite maior. O banco aumenta o limite de quem usa bastante o cartão, não de quem ganha mais."
+      },
+      {
+        "id": "recusar",
+        "texto": "Manter o limite atual",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Limite menor funciona como freio: fica mais difícil a fatura passar do que você consegue pagar."
+      }
+    ]
+  },
+  {
+    "id": "emprestimo_app",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "R$ 800 pré-aprovados",
+    "texto": "“Dinheiro na conta em 1 minuto. Sem burocracia!” Em letras pequenas: 10 parcelas, juros de 7,5% ao mês.",
+    "tempo": 15,
+    "peso": 1.0,
+    "espera": 40,
+    "condicoes": {"dia_min": 28},
+    "padrao": "recusar",
+    "vacina": "credito_facil",
+    "escolhas": [
+      {
+        "id": "pegar",
+        "texto": "Pegar os R$ 800",
+        "tipo": "arriscada",
+        "efeitos": {"emprestimo": {"nome": "Empréstimo pessoal", "valor": 800, "taxa": 0.075, "parcelas": 10}, "interesse": {"credito": 0.6}},
+        "resultado": "R$ 800 na conta. Serão 10 parcelas de R$ 116,55: você devolve R$ 1.165 no total."
+      },
+      {
+        "id": "recusar",
+        "texto": "Recusar",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Pré-aprovado não é presente. Crédito fácil custa caro justamente porque é fácil."
+      }
+    ]
+  },
+  {
+    "id": "agiota",
+    "categoria": "credito",
+    "canal": "Mensagem",
+    "remetente": "Dinheiro na Hora",
+    "titulo": "Crédito sem consulta",
+    "texto": "“Nome sujo? Sem problema. R$ 500 na sua mão hoje, sem contrato e sem banco. Paga em duas vezes.” Ninguém fala a taxa.",
+    "peso": 1.4,
+    "espera": 40,
+    "condicoes": {"dia_min": 30, "divida_min": 500},
+    "padrao": "recusar",
+    "vacina": "agiota",
+    "escolhas": [
+      {
+        "id": "pegar",
+        "texto": "Pegar os R$ 500",
+        "tipo": "golpe",
+        "efeitos": {"emprestimo": {"nome": "Agiota", "valor": 500, "taxa": 0.45, "parcelas": 2}, "estresse": 6},
+        "resultado": "O dinheiro veio rápido. A cobrança também: mensagens todo dia, e a dívida cresce quase metade a cada mês."
+      },
+      {
+        "id": "renegociar",
+        "texto": "Procurar o banco para renegociar",
+        "tipo": "segura",
+        "efeitos": {"agenda": [{"evento": "feirao", "dias": 2}]},
+        "resultado": "Você fala com o banco. Renegociar dá vergonha, mas costuma ser a saída mais barata."
+      },
+      {
+        "id": "recusar",
+        "texto": "Recusar",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "Empréstimo sem banco e sem contrato cobra em juros e em ameaça."
+      }
+    ]
+  },
+  {
+    "id": "feirao",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "Feirão de renegociação",
+    "texto": "“Regularize a dívida do cartão: desconto de 30% nos juros e parcelas fixas a 2,9% ao mês.” É bem menos que o rotativo.",
+    "peso": 1.5,
+    "espera": 50,
+    "condicoes": {"dia_min": 30, "rotativo_min": 150},
+    "padrao": "depois",
+    "vacina": "rotativo",
+    "escolhas": [
+      {
+        "id": "aceitar",
+        "texto": "Renegociar em 8 parcelas",
+        "tipo": "segura",
+        "efeitos": {"renegociar": {"desconto": 0.3, "taxa": 0.029, "parcelas": 8}},
+        "resultado": "Dívida do rotativo trocada por parcelas fixas e muito mais baratas. Agora é não atrasar e não passar no cartão o que não cabe no mês."
+      },
+      {
+        "id": "depois",
+        "texto": "Deixar para depois",
+        "tipo": "arriscada",
+        "efeitos": {},
+        "resultado": "A proposta saiu do aplicativo. O rotativo continua correndo todos os dias."
+      }
+    ]
+  },
+  {
+    "id": "antecipar_fgts",
+    "categoria": "credito",
+    "canal": "App do banco",
+    "remetente": "Seu banco digital",
+    "titulo": "Antecipe o seu FGTS",
+    "texto": "“Você tem saldo de FGTS! Antecipe agora e receba na hora.” Você recebe 70% do valor; o resto fica com o banco como juros, e o saldo deixa de te proteger numa demissão.",
+    "peso": 1.0,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"vinculo": ["clt"], "fgts_min": 300},
+    "padrao": "recusar",
+    "vacina": "credito_facil",
+    "escolhas": [
+      {
+        "id": "antecipar",
+        "texto": "Antecipar e receber agora",
+        "tipo": "arriscada",
+        "efeitos": {"fgts_antecipar": 0.7, "interesse": {"credito": 0.4}},
+        "resultado": "Dinheiro na conta, FGTS zerado. Você trocou a proteção contra o desemprego por um alívio de curto prazo."
+      },
+      {
+        "id": "recusar",
+        "texto": "Deixar o FGTS quieto",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "O FGTS é a reserva que a carteira assinada faz por você. Fica melhor guardado."
+      }
+    ]
+  },
+  {
+    "id": "parcelas_somadas",
+    "categoria": "credito",
+    "canal": "Mensagem",
+    "remetente": "Guará",
+    "titulo": "Fiz a soma das suas parcelas",
+    "texto": "Somando tudo que você parcelou, {parcelas_mes} do seu mês já estão comprometidos antes de qualquer dinheiro entrar. Cada parcela sozinha parecia pequena.",
+    "peso": 2.0,
+    "espera": 60,
+    "max_vezes": 2,
+    "condicoes": {"parcelas_min": 2},
+    "padrao": "ok",
+    "vacina": "parcelinha",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Entendi",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Antes de parcelar de novo, some o que já está comprometido. A parcela nova entra em cima das antigas."
+      }
+    ]
+  },
+  {
+    "id": "celular_quebrou",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "O celular caiu e a tela apagou",
+    "texto": "Sem celular não entra corrida, não entra PIX, não entra mensagem de trabalho. A assistência cobra R$ 380 pelo conserto.",
+    "peso": 1.0,
+    "espera": 70,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 20, "sem_bem": ["celular_bom", "celular_top"]},
+    "padrao": "ficar_sem",
+    "vacina": "reserva",
+    "escolhas": [
+      {
+        "id": "reserva",
+        "texto": "Pagar com a reserva (R$ 380)",
+        "tipo": "segura",
+        "requer": {"reserva": 380},
+        "efeitos": {"reserva": -380, "imposto": "servicos", "rotulo": "Conserto do celular"},
+        "resultado": "A reserva existe exatamente para isso. Doeu ver o valor cair, mas não virou dívida."
+      },
+      {
+        "id": "conta",
+        "texto": "Pagar no PIX (R$ 380)",
+        "tipo": "neutra",
+        "requer": {"saldo": 380},
+        "efeitos": {"saldo": -380, "cat": "consumo", "imposto": "servicos", "rotulo": "Conserto do celular"},
+        "resultado": "Consertado. O mês ficou apertado, mas você segue trabalhando."
+      },
+      {
+        "id": "cartao",
+        "texto": "Parcelar em 4x no cartão",
+        "tipo": "arriscada",
+        "requer": {"limite": 380},
+        "efeitos": {"cartao": 380, "parcelas": 4, "imposto": "servicos", "rotulo": "Conserto do celular"},
+        "resultado": "Consertado, com quatro parcelas de R$ 95 nas próximas faturas."
+      },
+      {
+        "id": "ficar_sem",
+        "texto": "Ficar sem celular por enquanto",
+        "tipo": "arriscada",
+        "efeitos": {"dias_sem_renda": 5, "estresse": 6},
+        "resultado": "Cinco dias sem conseguir trabalhar direito, até um primo emprestar um aparelho velho. O conserto que você não pagou custou mais caro em renda perdida."
+      }
+    ]
+  },
+  {
+    "id": "pneu_bike",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "Pneu rasgado no meio da entrega",
+    "texto": "Um buraco acabou com o pneu traseiro. Trocar custa R$ 65. Dá para remendar por R$ 15, mas o borracheiro avisa que não vai durar.",
+    "peso": 1.1,
+    "espera": 30,
+    "condicoes": {"dia_min": 5, "vinculo": ["informal"]},
+    "padrao": "remendar",
+    "escolhas": [
+      {
+        "id": "trocar",
+        "texto": "Trocar o pneu (R$ 65)",
+        "tipo": "segura",
+        "requer": {"saldo": 65},
+        "efeitos": {"saldo": -65, "cat": "consumo", "imposto": "servicos", "rotulo": "Pneu novo"},
+        "resultado": "Pneu novo. Manutenção da ferramenta de trabalho não é luxo, é custo do negócio."
+      },
+      {
+        "id": "remendar",
+        "texto": "Remendar (R$ 15)",
+        "tipo": "arriscada",
+        "efeitos": {"saldo": -15, "cat": "consumo", "imposto": "servicos", "rotulo": "Remendo do pneu", "agenda": [{"evento": "pneu_estourou", "dias": 6}]},
+        "resultado": "Remendado. Dá para rodar, por enquanto."
+      }
+    ]
+  },
+  {
+    "id": "pneu_estourou",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "O remendo não aguentou",
+    "texto": "O pneu estourou de vez no horário de pico. Você perdeu o dia de entregas e agora precisa trocar de qualquer jeito: R$ 65.",
+    "so_agenda": true,
+    "validade": 2,
+    "condicoes": {"vinculo": ["informal"]},
+    "padrao": "ok",
+    "vacina": "reserva",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Trocar o pneu",
+        "tipo": "neutra",
+        "efeitos": {"saldo": -65, "cat": "consumo", "imposto": "servicos", "rotulo": "Pneu novo", "dias_sem_renda": 1},
+        "resultado": "O barato saiu caro: R$ 15 do remendo, R$ 65 do pneu e um dia sem renda."
+      }
+    ]
+  },
+  {
+    "id": "doente_informal",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "Febre e corpo ruim",
+    "texto": "Você acordou derrubado por uma virose. Quem trabalha sem carteira não tem atestado: dia parado é dia sem renda.",
+    "peso": 1.0,
+    "espera": 50,
+    "condicoes": {"dia_min": 12, "vinculo": ["informal", "pj"]},
+    "padrao": "repousar",
+    "vacina": "pj_clt",
+    "escolhas": [
+      {
+        "id": "repousar",
+        "texto": "Ficar de repouso por 3 dias",
+        "tipo": "segura",
+        "efeitos": {"dias_sem_renda": 3, "saldo": -40, "cat": "consumo", "imposto": "saude", "rotulo": "Remédios", "fadiga": -3},
+        "resultado": "Três dias sem renda e R$ 40 de remédio. Com carteira assinada, esses dias seriam pagos."
+      },
+      {
+        "id": "trabalhar",
+        "texto": "Trabalhar doente mesmo",
+        "tipo": "arriscada",
+        "efeitos": {"fadiga": 6, "estresse": 4, "dias_sem_renda": 1},
+        "resultado": "Você trabalhou meio período, rendeu pouco e piorou. O corpo cobra depois."
+      }
+    ]
+  },
+  {
+    "id": "doente_clt",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "Febre e corpo ruim",
+    "texto": "Você acordou derrubado por uma virose. O médico do posto te dá um atestado de três dias.",
+    "peso": 0.8,
+    "espera": 60,
+    "condicoes": {"vinculo": ["clt"]},
+    "padrao": "repousar",
+    "vacina": "pj_clt",
+    "escolhas": [
+      {
+        "id": "repousar",
+        "texto": "Entregar o atestado e descansar",
+        "tipo": "segura",
+        "efeitos": {"saldo": -40, "cat": "consumo", "imposto": "saude", "rotulo": "Remédios", "fadiga": -3},
+        "resultado": "Três dias em casa, salário intacto. É para isso que servem os direitos de quem tem carteira."
+      }
+    ]
+  },
+  {
+    "id": "conta_luz",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Conta de luz",
+    "titulo": "Bandeira vermelha na conta de luz",
+    "texto": "A conta deste mês veio R$ 70 mais cara por causa da bandeira tarifária. Uma parte grande do valor de uma conta de luz é imposto.",
+    "peso": 0.9,
+    "espera": 45,
+    "condicoes": {"dia_min": 15},
+    "padrao": "ok",
+    "vacina": "imposto_embutido",
+    "escolhas": [
+      {
+        "id": "ok",
+        "texto": "Pagar a diferença",
+        "tipo": "neutra",
+        "efeitos": {"saldo": -70, "cat": "custo_fixo", "imposto": "contas", "rotulo": "Conta de luz (bandeira)"},
+        "resultado": "Pago. Imposto embutido pesa mais para quem ganha menos, porque quem ganha pouco gasta quase tudo em consumo."
+      }
+    ]
+  },
+  {
+    "id": "gas_acabou",
+    "categoria": "imprevisto",
+    "canal": "Vida real",
+    "remetente": "Imprevisto",
+    "titulo": "O gás acabou",
+    "texto": "O botijão acabou no meio do almoço. Um novo custa R$ 115.",
+    "peso": 0.9,
+    "espera": 45,
+    "condicoes": {"dia_min": 18},
+    "padrao": "comprar",
+    "escolhas": [
+      {
+        "id": "comprar",
+        "texto": "Comprar o botijão",
+        "tipo": "neutra",
+        "efeitos": {"saldo": -115, "cat": "custo_fixo", "imposto": "contas", "rotulo": "Botijão de gás"},
+        "resultado": "Gás trocado. Despesa que aparece a cada dois meses não é imprevisto: dá para planejar."
+      }
+    ]
+  },
+  {
+    "id": "remedio_mae",
+    "categoria": "imprevisto",
+    "canal": "Mensagem",
+    "remetente": "Mãe",
+    "titulo": "Filho, consegue me ajudar?",
+    "texto": "“O remédio da pressão não tinha no posto e na farmácia está R$ 150. Se não der eu me viro, tá?” Desta vez é ela mesma, no número de sempre.",
+    "peso": 0.8,
+    "espera": 60,
+    "condicoes": {"dia_min": 22},
+    "padrao": "nao_da",
+    "escolhas": [
+      {
+        "id": "ajudar",
+        "texto": "Mandar os R$ 150",
+        "tipo": "neutra",
+        "requer": {"saldo": 150},
+        "efeitos": {"saldo": -150, "cat": "consumo", "imposto": "saude", "rotulo": "Ajuda para a mãe", "estresse": -3},
+        "resultado": "Ela agradece. Ajudar a família também é parte do orçamento de quem vive no Brasil real."
+      },
+      {
+        "id": "metade",
+        "texto": "Mandar R$ 75 e explicar o aperto",
+        "tipo": "neutra",
+        "requer": {"saldo": 75},
+        "efeitos": {"saldo": -75, "cat": "consumo", "imposto": "saude", "rotulo": "Ajuda para a mãe", "estresse": -1},
+        "resultado": "Vocês dividem a conta. Falar de dinheiro em casa, sem vergonha, evita muito sufoco."
+      },
+      {
+        "id": "nao_da",
+        "texto": "Dizer que este mês não dá",
+        "tipo": "neutra",
+        "efeitos": {"estresse": 4},
+        "resultado": "Ela entende, mas você fica com aquilo na cabeça o resto da semana."
+      }
+    ]
+  },
+  {
+    "id": "app_bloqueou",
+    "categoria": "imprevisto",
+    "canal": "Notificação",
+    "remetente": "Aplicativo de entregas",
+    "titulo": "Sua conta foi suspensa",
+    "texto": "“Identificamos uma irregularidade. Sua conta está em análise.” Sem explicação e sem prazo. Num grupo, alguém oferece: “Desbloqueio contas em 1 hora por R$ 80.”",
+    "peso": 0.9,
+    "espera": 70,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 25, "vinculo": ["informal"]},
+    "padrao": "recorrer",
+    "vacina": "taxa_antecipada",
+    "escolhas": [
+      {
+        "id": "recorrer",
+        "texto": "Recorrer pelo aplicativo e esperar",
+        "tipo": "segura",
+        "efeitos": {"dias_sem_renda": 4, "estresse": 4},
+        "resultado": "Quatro dias parado até a conta voltar, sem nenhum pagamento pelo tempo perdido. É o risco de depender de uma plataforma."
+      },
+      {
+        "id": "pagar",
+        "texto": "Pagar o “desbloqueador” (R$ 80)",
+        "tipo": "golpe",
+        "requer": {"saldo": 80},
+        "efeitos": {"saldo": -80, "cat": "golpe", "rotulo": "Falso desbloqueio", "dias_sem_renda": 4, "estresse": 6},
+        "resultado": "O “desbloqueador” sumiu com os R$ 80. A conta voltou sozinha quatro dias depois."
+      }
+    ]
+  },
+  {
+    "id": "compara_pj_clt",
+    "categoria": "trabalho",
+    "canal": "Mensagem",
+    "remetente": "Tia Rose",
+    "titulo": "Duas vagas para você ver",
+    "texto": "“Vi duas vagas na mesma rua. Uma loja paga R$ 1.980 como PJ. O escritório ao lado paga R$ 2.150 com carteira, mas com os descontos cai uns R$ 1.850 na conta. A do PJ paga mais, né?”",
+    "peso": 1.0,
+    "espera": 90,
+    "max_vezes": 1,
+    "condicoes": {"dia_min": 14},
+    "padrao": "mes",
+    "vacina": "pj_clt",
+    "escolhas": [
+      {
+        "id": "ano",
+        "texto": "Comparar o pacote do ano inteiro",
+        "tipo": "segura",
+        "efeitos": {},
+        "resultado": "CLT: 13º, férias, FGTS de 8% ao mês, vale-refeição e INSS. PJ: R$ 1.980 menos o boleto do MEI e a passagem, e nenhum dia pago se você adoecer. No ano, a CLT paga mais."
+      },
+      {
+        "id": "mes",
+        "texto": "Olhar só o valor do mês",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Pelo valor do mês, o PJ ganha. Mas a conta certa é a do ano: 13º, férias, FGTS e benefícios não aparecem no anúncio."
+      }
+    ]
+  },
+  {
+    "id": "curso_gratuito",
+    "categoria": "trabalho",
+    "canal": "Mensagem",
+    "remetente": "Guará",
+    "titulo": "Tem curso de graça aberto",
+    "texto": "As inscrições do curso gratuito de Atendimento ao Cliente estão abertas. São 8 aulas online. Com ele você já pode disputar vagas de salário fixo.",
+    "peso": 2.0,
+    "espera": 40,
+    "max_vezes": 2,
+    "condicoes": {"dia_min": 8, "sem_curso": "atendimento"},
+    "padrao": "depois",
+    "escolhas": [
+      {
+        "id": "inscrever",
+        "texto": "Fazer a inscrição",
+        "tipo": "segura",
+        "efeitos": {"matricula": "atendimento"},
+        "resultado": "Inscrito. As aulas ficam na aba Trabalho: uma por dia, no seu ritmo."
+      },
+      {
+        "id": "depois",
+        "texto": "Depois eu vejo",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "O curso continua disponível na aba Trabalho."
+      }
+    ]
+  },
+  {
+    "id": "gorjeta",
+    "categoria": "sorte",
+    "canal": "Vida real",
+    "remetente": "Cliente",
+    "titulo": "Gorjeta boa",
+    "texto": "Entrega debaixo de chuva, no quinto andar sem elevador. A cliente manda um PIX de R$ 40 de gorjeta: “Obrigada pelo esforço!”",
+    "ao_chegar": {"saldo": 40, "cat": "renda", "rotulo": "Gorjeta"},
+    "peso": 0.9,
+    "espera": 25,
+    "condicoes": {"vinculo": ["informal"]},
+    "padrao": "usar",
+    "escolhas": [
+      {
+        "id": "guardar",
+        "texto": "Mandar direto para a reserva",
+        "tipo": "segura",
+        "requer": {"saldo": 40},
+        "efeitos": {"aporte": 40},
+        "vacina": "juros_a_favor",
+        "resultado": "R$ 40 na reserva. Dinheiro que entra sem estar no plano é o mais fácil de guardar."
+      },
+      {
+        "id": "usar",
+        "texto": "Deixar na conta",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "Ficou na conta para as despesas da semana."
+      }
+    ]
+  },
+  {
+    "id": "pix_avo",
+    "categoria": "sorte",
+    "canal": "Mensagem",
+    "remetente": "Vó Dita",
+    "titulo": "Um agrado da vó",
+    "texto": "“Fiz um PIX de R$ 100 para você comprar alguma coisa. Não gasta tudo com besteira, viu?”",
+    "ao_chegar": {"saldo": 100, "cat": "outros", "rotulo": "PIX da vó"},
+    "peso": 0.7,
+    "espera": 80,
+    "condicoes": {"dia_min": 10},
+    "padrao": "deixar",
+    "escolhas": [
+      {
+        "id": "reserva",
+        "texto": "Guardar tudo na reserva",
+        "tipo": "segura",
+        "requer": {"saldo": 100},
+        "efeitos": {"aporte": 100},
+        "vacina": "juros_a_favor",
+        "resultado": "R$ 100 na reserva, rendendo juros sobre juros."
+      },
+      {
+        "id": "meio",
+        "texto": "Guardar metade, curtir metade",
+        "tipo": "segura",
+        "requer": {"saldo": 100},
+        "efeitos": {"aporte": 50, "saldo": -50, "cat": "consumo", "imposto": "lazer", "rotulo": "Passeio", "estresse": -3},
+        "vacina": "juros_a_favor",
+        "resultado": "Metade para o futuro, metade para o agora. Equilíbrio também é educação financeira."
+      },
+      {
+        "id": "deixar",
+        "texto": "Deixar na conta",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "O dinheiro ficou na conta e se misturou com o resto do mês."
+      }
+    ]
+  },
+  {
+    "id": "bonus_meta",
+    "categoria": "sorte",
+    "canal": "Trabalho",
+    "remetente": "Sua chefe",
+    "titulo": "Bônus por meta batida",
+    "texto": "A equipe bateu a meta do trimestre e todo mundo recebeu R$ 250 de bônus.",
+    "ao_chegar": {"saldo": 250, "cat": "renda", "rotulo": "Bônus por meta"},
+    "peso": 0.7,
+    "espera": 80,
+    "condicoes": {"vinculo": ["clt"]},
+    "padrao": "deixar",
+    "escolhas": [
+      {
+        "id": "reserva",
+        "texto": "Guardar na reserva",
+        "tipo": "segura",
+        "requer": {"saldo": 250},
+        "efeitos": {"aporte": 250},
+        "vacina": "juros_a_favor",
+        "resultado": "R$ 250 direto para a reserva. Renda extra guardada na hora não faz falta no mês."
+      },
+      {
+        "id": "deixar",
+        "texto": "Deixar na conta",
+        "tipo": "neutra",
+        "efeitos": {},
+        "resultado": "O bônus ficou na conta."
+      }
+    ]
+  }
+]

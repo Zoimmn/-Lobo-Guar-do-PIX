@@ -1,0 +1,107 @@
+[
+  {
+    "id": "bico_bike",
+    "nome": "Entregador de app (bike)",
+    "vinculo": "informal",
+    "renda_min": 40,
+    "renda_max": 84,
+    "transporte_dia": 0,
+    "s0": 16,
+    "extra": {
+      "nome": "Ritmo puxado: mais horas na rua"
+    },
+    "requisitos": {},
+    "resumo": "Você ganha por dia rodado. Choveu, adoeceu ou o aplicativo bloqueou: não entra nada.",
+    "direitos": []
+  },
+  {
+    "id": "pj_loja",
+    "nome": "Atendente “PJ” em loja",
+    "vinculo": "pj",
+    "salario": 1980,
+    "das": 85,
+    "transporte_dia": 10,
+    "s0": 14,
+    "risco_atraso": 0.2,
+    "risco_dispensa": 0.05,
+    "extra": {
+      "nome": "Turno extra na loja",
+      "ganho_min": 18,
+      "ganho_max": 26
+    },
+    "requisitos": {
+      "cursos": [
+        "atendimento"
+      ]
+    },
+    "resumo": "Salário fixo no dia 5, mas sem carteira assinada: sem 13º, férias, FGTS ou aviso prévio. Você abre um MEI e paga o boleto todo mês.",
+    "direitos": [
+      "Salário fixo mensal"
+    ],
+    "chance": 0.85
+  },
+  {
+    "id": "clt_auxiliar",
+    "nome": "Auxiliar administrativo (CLT)",
+    "vinculo": "clt",
+    "salario": 2150,
+    "inss": 0.08,
+    "desconto_vt": 0.06,
+    "vale_refeicao": 280,
+    "transporte_dia": 0,
+    "s0": 11,
+    "risco_dispensa": 0.015,
+    "extra": {
+      "nome": "Hora extra",
+      "ganho_min": 16,
+      "ganho_max": 24
+    },
+    "requisitos": {
+      "cursos": [
+        "atendimento",
+        "informatica"
+      ]
+    },
+    "resumo": "Carteira assinada. O valor que cai na conta é menor que o do PJ, mas o pacote do ano é maior.",
+    "direitos": [
+      "13º salário",
+      "Férias remuneradas",
+      "FGTS: 8% do salário por mês",
+      "INSS: auxílio-doença e aposentadoria",
+      "Vale-transporte e vale-refeição"
+    ],
+    "chance": 0.65
+  },
+  {
+    "id": "clt_tecnico",
+    "nome": "Técnico de suporte (CLT)",
+    "vinculo": "clt",
+    "salario": 3200,
+    "inss": 0.09,
+    "desconto_vt": 0.06,
+    "vale_refeicao": 400,
+    "transporte_dia": 0,
+    "s0": 10,
+    "risco_dispensa": 0.01,
+    "extra": {
+      "nome": "Hora extra",
+      "ganho_min": 26,
+      "ganho_max": 38
+    },
+    "requisitos": {
+      "cursos": [
+        "tecnico"
+      ],
+      "meses_clt": 2
+    },
+    "resumo": "Qualificação técnica e carteira assinada: renda maior e mais estável.",
+    "direitos": [
+      "13º salário",
+      "Férias remuneradas",
+      "FGTS: 8% do salário por mês",
+      "INSS: auxílio-doença e aposentadoria",
+      "Vale-transporte e vale-refeição"
+    ],
+    "chance": 0.7
+  }
+]

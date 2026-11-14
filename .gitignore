@@ -1,0 +1,15 @@
+# Godot 4
+.godot/
+*.translation
+export_credentials.cfg
+
+# Saídas de build
+build/*
+!build/.gdignore
+*.apk
+*.aab
+*.idsig
+
+# Sistema
+.DS_Store
+Thumbs.db

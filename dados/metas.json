@@ -1,0 +1,52 @@
+[
+  {
+    "id": "mes_sem_divida",
+    "titulo": "Fechar um mês sem dívida",
+    "tipo": "mes_sem_divida",
+    "valor": 1,
+    "descricao": "Chegue ao fim do mês sem dívida ativa."
+  },
+  {
+    "id": "reserva_1",
+    "titulo": "Reserva de 1 mês",
+    "tipo": "reserva_meses",
+    "valor": 1,
+    "descricao": "Guarde o equivalente a um mês do custo de vida. É o fôlego para trocar de trabalho."
+  },
+  {
+    "id": "curso",
+    "titulo": "Concluir um curso",
+    "tipo": "cursos",
+    "valor": 1,
+    "descricao": "Qualificação é o caminho para sair da informalidade."
+  },
+  {
+    "id": "vacinas_6",
+    "titulo": "6 vacinas cognitivas",
+    "tipo": "vacinas",
+    "valor": 6,
+    "descricao": "Reconheça seis padrões de manipulação."
+  },
+  {
+    "id": "carteira",
+    "titulo": "Carteira assinada",
+    "tipo": "vinculo",
+    "valor": "clt",
+    "descricao": "Conquiste um emprego com carteira assinada."
+  },
+  {
+    "id": "reserva_3",
+    "titulo": "Reserva de 3 meses",
+    "tipo": "reserva_meses",
+    "valor": 3,
+    "descricao": "Metade do caminho."
+  },
+  {
+    "id": "reserva_6",
+    "titulo": "Reserva de 6 meses",
+    "tipo": "reserva_meses",
+    "valor": 6,
+    "final": true,
+    "descricao": "A meta do jogo: seis meses de custo de vida guardados e nenhuma dívida ativa."
+  }
+]

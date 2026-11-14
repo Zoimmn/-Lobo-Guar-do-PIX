@@ -1,0 +1,191 @@
+[
+  {
+    "id": "reserva",
+    "nome": "Imprevisto não é exceção",
+    "tecnica": "Planejamento",
+    "explicacao": "Celular quebra, conta sobe, o aplicativo bloqueia. Sem reserva, cada imprevisto vira dívida cara.",
+    "protecao": "Meta: guardar o equivalente a 6 meses dos seus custos fixos, um pouco por vez."
+  },
+  {
+    "id": "urgencia",
+    "nome": "Urgência fabricada",
+    "tecnica": "Pressa",
+    "explicacao": "Golpes e ofertas criam prazo curto para você decidir sem pensar. Quando alguém tem pressa com o seu dinheiro, o problema costuma ser dele.",
+    "protecao": "Nenhuma decisão de dinheiro precisa ser tomada no mesmo minuto. Espere."
+  },
+  {
+    "id": "clonagem",
+    "nome": "Perfil clonado",
+    "tecnica": "Confiança emprestada",
+    "explicacao": "O golpista se passa por um parente com “número novo” e pede dinheiro com urgência. A foto e o jeito de escrever são copiados.",
+    "protecao": "Ligue para o número antigo ou faça uma pergunta que só a pessoa saberia responder."
+  },
+  {
+    "id": "autoridade",
+    "nome": "Falsa autoridade",
+    "tecnica": "Autoridade",
+    "explicacao": "Quem diz ser do banco ou do suporte usa tom oficial para você obedecer sem conferir. Banco não pede senha, código nem transferência para “conta segura”.",
+    "protecao": "Desligue e procure você mesmo o canal oficial que está no aplicativo ou no cartão."
+  },
+  {
+    "id": "pix_engano",
+    "nome": "PIX “por engano”",
+    "tecnica": "Reciprocidade",
+    "explicacao": "O golpista manda um PIX e pede a devolução para outra chave. Depois contesta o PIX original no banco e recebe duas vezes.",
+    "protecao": "Devolva somente pelo botão “Devolver” do próprio PIX recebido, nunca por uma nova transferência."
+  },
+  {
+    "id": "phishing",
+    "nome": "Link isca",
+    "tecnica": "Medo",
+    "explicacao": "Mensagens de conta bloqueada ou fatura atrasada levam a páginas falsas, idênticas às verdadeiras, que copiam a sua senha.",
+    "protecao": "Não clique. Abra o aplicativo oficial e confira por lá."
+  },
+  {
+    "id": "taxa_antecipada",
+    "nome": "Pague para receber",
+    "tecnica": "Esperança",
+    "explicacao": "Vaga, empréstimo, prêmio ou desbloqueio que exige um pagamento antes é golpe. Quem vai te pagar não cobra entrada.",
+    "protecao": "Pediu taxa adiantada? Encerre a conversa."
+  },
+  {
+    "id": "comprovante",
+    "nome": "Print não é pagamento",
+    "tecnica": "Pressa",
+    "explicacao": "Comprovante pode ser editado, e PIX agendado pode ser cancelado depois. A tela do outro não prova nada.",
+    "protecao": "Só entregue quando o valor aparecer no seu extrato."
+  },
+  {
+    "id": "bom_demais",
+    "nome": "Preço bom demais",
+    "tecnica": "Ganância",
+    "explicacao": "Desconto absurdo em loja desconhecida é isca. O produto não chega, o perfil some e o PIX não volta.",
+    "protecao": "Pesquise o CNPJ e a reputação. Prefira meios de pagamento que protegem o comprador."
+  },
+  {
+    "id": "piramide",
+    "nome": "Renda fácil",
+    "tecnica": "Isca progressiva",
+    "explicacao": "Tarefas pagas e “investimentos” que dependem de depósito ou de novos membros pagam os primeiros com o dinheiro dos últimos.",
+    "protecao": "Se para ganhar você precisa depositar ou recrutar, saia."
+  },
+  {
+    "id": "casa_vence",
+    "nome": "A casa sempre vence",
+    "tecnica": "Valor esperado",
+    "explicacao": "As odds são calculadas para a casa ficar com uma parte de tudo que é apostado. Dá para ganhar um dia; somando o ano, perder é a regra.",
+    "protecao": "Aposta é gasto, nunca renda. Defina um teto de lazer ou não entre."
+  },
+  {
+    "id": "isca_inicial",
+    "nome": "A isca do começo",
+    "tecnica": "Reforço imediato",
+    "explicacao": "Ganhar nas primeiras rodadas e receber “bônus” faz parecer fácil. O bônus vem com metas de aposta feitas para quase ninguém conseguir sacar.",
+    "protecao": "No Brasil, bets autorizadas usam o domínio .bet.br e não podem oferecer bônus de entrada."
+  },
+  {
+    "id": "recuperar_perda",
+    "nome": "Recuperar o prejuízo",
+    "tecnica": "Aversão à perda",
+    "explicacao": "Depois de perder, o cérebro quer empatar e aposta mais alto. A perda anterior não muda em nada a chance da rodada seguinte.",
+    "protecao": "Perdeu o teto do dia? Feche o aplicativo. Dinheiro perdido não se busca de volta."
+  },
+  {
+    "id": "vies_sobrevivencia",
+    "nome": "Só o print de quem ganhou",
+    "tecnica": "Viés de sobrevivência",
+    "explicacao": "Você vê os ganhos dos outros e nunca as perdas. Quem perdeu não posta.",
+    "protecao": "Pergunte quanto a pessoa já colocou lá, não quanto sacou ontem."
+  },
+  {
+    "id": "prova_social",
+    "nome": "Todo mundo tem",
+    "tecnica": "Prova social",
+    "explicacao": "Ver muita gente com a mesma coisa dá a sensação de estar ficando para trás. O feed mostra o melhor momento de cada um, nunca a fatura.",
+    "protecao": "Compare a compra com o seu plano, não com o feed."
+  },
+  {
+    "id": "escassez",
+    "nome": "Só hoje, últimas unidades",
+    "tecnica": "Escassez",
+    "explicacao": "Contagem regressiva e “restam poucas” existem para impedir que você compare preços. A promoção quase sempre volta.",
+    "protecao": "Se não estava na sua lista antes do anúncio, espere 24 horas."
+  },
+  {
+    "id": "ancoragem",
+    "nome": "De R$ 499 por R$ 249",
+    "tecnica": "Ancoragem",
+    "explicacao": "O preço “de” é uma âncora: faz o preço “por” parecer barato, mesmo quando é o valor de sempre.",
+    "protecao": "Consulte o histórico de preço antes de acreditar no desconto."
+  },
+  {
+    "id": "parcelinha",
+    "nome": "Cabe no bolso",
+    "tecnica": "Foco na parcela",
+    "explicacao": "Olhar só o valor da parcela esconde o total e o tempo do compromisso. Cinco “parcelinhas” somadas viram um aluguel.",
+    "protecao": "Some todas as parcelas do mês antes de assumir mais uma."
+  },
+  {
+    "id": "rotativo",
+    "nome": "Juros compostos contra você",
+    "tecnica": "Bola de neve",
+    "explicacao": "Pagar só o mínimo joga o resto no rotativo, o crédito mais caro do país: mais de 400% ao ano. São juros sobre juros.",
+    "protecao": "Pague o total. Se não der, parcelar a fatura ou renegociar custa bem menos que o rotativo."
+  },
+  {
+    "id": "juros_a_favor",
+    "nome": "Juros compostos a favor",
+    "tecnica": "Tempo",
+    "explicacao": "Na reserva, os juros rendem sobre os juros. Parece pouco no começo e cresce com o tempo.",
+    "protecao": "Guarde primeiro, logo que o dinheiro entrar, e gaste o que sobrar."
+  },
+  {
+    "id": "cheque_especial",
+    "nome": "Limite da conta não é saldo",
+    "tecnica": "Saldo inflado",
+    "explicacao": "O cheque especial entra em ação sozinho quando o saldo acaba e cobra até 8% ao mês. O aplicativo às vezes soma o limite ao saldo disponível.",
+    "protecao": "Olhe o saldo sem o limite. Conta negativa é dívida correndo todo dia."
+  },
+  {
+    "id": "credito_facil",
+    "nome": "Limite não é renda",
+    "tecnica": "Facilidade",
+    "explicacao": "Crédito pré-aprovado e aumento de limite não são dinheiro seu: são dívida pronta para uso, oferecida a quem mais usa.",
+    "protecao": "Antes de aceitar, pergunte quanto vai custar no total."
+  },
+  {
+    "id": "agiota",
+    "nome": "Dinheiro rápido, dívida longa",
+    "tecnica": "Desespero",
+    "explicacao": "Empréstimo sem banco e sem contrato cobra juros muito acima do mercado e usa ameaça como forma de cobrança.",
+    "protecao": "Procure renegociação no banco ou em feirões de dívida antes de qualquer agiota."
+  },
+  {
+    "id": "pj_clt",
+    "nome": "O pacote do ano",
+    "tecnica": "Comparação incompleta",
+    "explicacao": "Trabalho sem carteira parece pagar mais no mês, mas não tem 13º, férias, FGTS nem dia pago em caso de doença.",
+    "protecao": "Compare o que você recebe no ano inteiro, com direitos, e não só o valor do mês."
+  },
+  {
+    "id": "imposto_embutido",
+    "nome": "Imposto escondido no preço",
+    "tecnica": "Custo invisível",
+    "explicacao": "No Brasil boa parte dos impostos está embutida no consumo. Quem ganha pouco gasta quase tudo consumindo e, por isso, paga proporcionalmente mais.",
+    "protecao": "Olhe a nota fiscal: ela mostra quanto do preço é tributo."
+  },
+  {
+    "id": "atalho",
+    "nome": "Atalho para a riqueza",
+    "tecnica": "Promessa de ganho rápido",
+    "explicacao": "Curso milagroso, moeda que vai “100x”, método secreto: quem vende o atalho ganha com a venda, não com o método.",
+    "protecao": "Desconfie de retorno alto, rápido e garantido. As três coisas nunca vêm juntas."
+  },
+  {
+    "id": "algoritmo",
+    "nome": "O algoritmo aprende seu ponto fraco",
+    "tecnica": "Personalização",
+    "explicacao": "Cada clique em aposta ou oferta ensina o aplicativo a te mostrar mais do mesmo, justamente quando você está mais vulnerável.",
+    "protecao": "Silenciar, bloquear e desativar notificações também treina o feed, a seu favor."
+  }
+]

@@ -1,0 +1,88 @@
+[
+  {
+    "id": "bike",
+    "nome": "Bicicleta usada",
+    "preco": 0,
+    "revenda": 150,
+    "inicial": true,
+    "essencial": true,
+    "categoria": "transporte",
+    "descricao": "Sua ferramenta de trabalho nas entregas."
+  },
+  {
+    "id": "celular_velho",
+    "nome": "Celular antigo",
+    "preco": 0,
+    "revenda": 120,
+    "inicial": true,
+    "essencial": true,
+    "categoria": "eletronicos",
+    "descricao": "Trava de vez em quando, mas é por ele que entram as corridas e o PIX."
+  },
+  {
+    "id": "bag",
+    "nome": "Mochila térmica",
+    "preco": 130,
+    "revenda": 40,
+    "loja": true,
+    "categoria": "vestuario",
+    "efeito": "Entregas rendem 8% a mais.",
+    "descricao": "Pedidos maiores e melhores avaliações."
+  },
+  {
+    "id": "capa_chuva",
+    "nome": "Capa de chuva",
+    "preco": 70,
+    "revenda": 15,
+    "loja": true,
+    "categoria": "vestuario",
+    "efeito": "Dia de chuva rende bem mais.",
+    "descricao": "Em dia de chuva quase ninguém roda. Quem roda, ganha."
+  },
+  {
+    "id": "celular_bom",
+    "nome": "Celular intermediário",
+    "preco": 1400,
+    "revenda": 650,
+    "parcelas": 10,
+    "loja": true,
+    "categoria": "eletronicos",
+    "efeito": "Acabam os imprevistos de celular quebrado.",
+    "descricao": "Bateria que dura o dia inteiro de trabalho."
+  },
+  {
+    "id": "notebook",
+    "nome": "Notebook usado",
+    "preco": 1300,
+    "revenda": 700,
+    "parcelas": 10,
+    "loja": true,
+    "categoria": "eletronicos",
+    "efeito": "Cada sessão de estudo vale por duas aulas.",
+    "descricao": "Estudar pelo celular é possível. No notebook rende o dobro."
+  },
+  {
+    "id": "tenis_hype",
+    "nome": "Tênis do momento",
+    "preco": 650,
+    "revenda": 160,
+    "categoria": "vestuario",
+    "descricao": "Comprado no impulso. Vale bem menos na revenda."
+  },
+  {
+    "id": "fone_hype",
+    "nome": "Fone sem fio da moda",
+    "preco": 249,
+    "revenda": 60,
+    "categoria": "eletronicos",
+    "descricao": "Comprado em promoção relâmpago."
+  },
+  {
+    "id": "celular_top",
+    "nome": "Celular de última geração",
+    "preco": 1800,
+    "revenda": 900,
+    "categoria": "eletronicos",
+    "descricao": "O mesmo que todo mundo postou."
+  }
+]

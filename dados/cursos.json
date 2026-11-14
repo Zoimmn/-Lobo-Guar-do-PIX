@@ -1,0 +1,33 @@
+[
+  {
+    "id": "atendimento",
+    "nome": "Atendimento ao cliente",
+    "custo": 0,
+    "aulas": 20,
+    "fadiga": 0.5,
+    "requisitos": {},
+    "descricao": "Curso gratuito e online. Não custa dinheiro, mas custa energia: enquanto você estuda, o cansaço aumenta um pouco a cada dia."
+  },
+  {
+    "id": "informatica",
+    "nome": "Informática e planilhas",
+    "custo": 240,
+    "aulas": 40,
+    "fadiga": 0.5,
+    "requisitos": {},
+    "descricao": "Pago na matrícula. Abre a porta para vagas com carteira assinada."
+  },
+  {
+    "id": "tecnico",
+    "nome": "Técnico em suporte de TI",
+    "custo": 650,
+    "aulas": 80,
+    "fadiga": 0.6,
+    "requisitos": {
+      "cursos": [
+        "informatica"
+      ]
+    },
+    "descricao": "Formação mais longa. Leva ao melhor salário do jogo."
+  }
+]

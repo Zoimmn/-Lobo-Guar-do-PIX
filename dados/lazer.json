@@ -1,0 +1,41 @@
+[
+  {
+    "id": "descansar",
+    "nome": "Tirar um dia de folga",
+    "custo": 0,
+    "fadiga": -5.0,
+    "choque": -1.5,
+    "espera": 3,
+    "descricao": "Um dia inteiro parado. Quem tem carteira descansa recebendo; quem é informal perde a renda do dia.",
+    "folga": true
+  },
+  {
+    "id": "role_barato",
+    "nome": "Rolê com os amigos",
+    "custo": 25,
+    "fadiga": -4.5,
+    "choque": -2.0,
+    "exposicoes": 1,
+    "espera": 3,
+    "descricao": "Praça, bola e conversa. Barato, e ainda diminui a sensação de estar ficando de fora."
+  },
+  {
+    "id": "cinema",
+    "nome": "Cinema e lanche",
+    "custo": 70,
+    "fadiga": -7.0,
+    "choque": -3.0,
+    "espera": 5,
+    "descricao": "Lazer também cabe no orçamento, desde que planejado."
+  },
+  {
+    "id": "detox",
+    "nome": "Detox digital",
+    "custo": 0,
+    "fadiga": -1.0,
+    "choque": 0,
+    "detox": true,
+    "espera": 7,
+    "descricao": "Silenciar perfis e notificações por uns dias. Reduz a exposição ao FOMO e esfria o algoritmo."
+  }
+]
