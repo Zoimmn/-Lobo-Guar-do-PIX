@@ -173,9 +173,15 @@ func _antecipar(indice: int, valor: float) -> void:
 
 func _extrato(sim: Simulacao) -> void:
 	var c := novo_cartao("Extrato")
-	var linhas := Database.ultimas_transacoes(25)
+	var primeiro_dia_do_mes := (sim.mes() - 1) * Economia.DIAS_MES + 1
+	var rotina := Database.soma_da_rotina(primeiro_dia_do_mes)
+	if rotina <= -0.01:
+		c.por(Kit.linha_valor("Comida e transporte do dia a dia, neste mês", Economia.reais(rotina),
+				Tema.TINTA, "pequeno"))
+		c.por(Kit.divisor())
+	var linhas := Database.ultimas_transacoes(25, true)
 	if linhas.is_empty():
-		c.por(Kit.rotulo("As movimentações aparecem aqui.", "pequeno", Tema.TINTA_2))
+		c.por(Kit.rotulo("As outras movimentações aparecem aqui.", "pequeno", Tema.TINTA_2))
 		return
 	for t: Variant in linhas:
 		var valor := float(t["valor"])

@@ -17,8 +17,10 @@ run/main_scene="res://cenas/titulo.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/quit_on_go_back=false
 run/low_processor_mode=true
-boot_splash/bg_color=Color(0.149, 0.086, 0.059, 1)
-boot_splash/show_image=false
+boot_splash/bg_color=Color(0.957, 0.937, 0.902, 1)
+boot_splash/show_image=true
+boot_splash/image="res://recursos/logo/abertura.png"
+boot_splash/fullsize=false
 config/icon="res://icon.svg"
 
 [autoload]

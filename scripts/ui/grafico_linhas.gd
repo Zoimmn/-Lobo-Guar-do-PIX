@@ -6,7 +6,7 @@ extends Control
 ## Mostra, lado a lado, como as decisões financeiras e a saúde emocional
 ## caminham juntas.
 
-const MARGEM_ESQUERDA := 96.0
+const MARGEM_ESQUERDA := 118.0
 const MARGEM_DIREITA := 56.0
 const MARGEM_TOPO := 16.0
 const MARGEM_BASE := 44.0
@@ -98,6 +98,8 @@ func _draw() -> void:
 
 
 func _reais_curto(valor: float) -> String:
-	if absf(valor) >= 1000.0:
-		return "R$ %s mil" % Kit.decimal(valor / 1000.0)
-	return "R$ %d" % int(round(valor))
+	var sinal := "-" if valor <= -0.5 else ""
+	var absoluto := absf(valor)
+	if absoluto >= 1000.0:
+		return "%sR$ %s mil" % [sinal, Kit.decimal(absoluto / 1000.0)]
+	return "%sR$ %d" % [sinal, int(round(absoluto))]

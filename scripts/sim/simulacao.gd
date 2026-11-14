@@ -590,7 +590,7 @@ func _pagar_essencial(nome: String, valor: float, cat_imposto: String, do_dia: b
 	if do_dia:
 		var parcial := maxf(snappedf(disponivel, 0.01), 0.0)
 		if parcial >= 1.0:
-			_mov(categoria, nome + " (o que deu)", -parcial, "conta", parcial * taxa)
+			_mov(categoria, nome, -parcial, "conta", parcial * taxa)
 		_ajustar_choque(2.5)
 		estat["dias_no_aperto"] = int(estat["dias_no_aperto"]) + 1
 		_diario("Faltou dinheiro para %s hoje." % nome.to_lower(), "ruim", false)
@@ -1519,7 +1519,11 @@ func _contar_decisao(ev: Dictionary, tipo: String, por_tempo: bool) -> void:
 
 func _aplicar_efeitos(ev: Dictionary, esc: Dictionary, p: Dictionary) -> String:
 	var ef: Dictionary = esc.get("efeitos", {})
-	var rotulo := String(ef.get("rotulo", ev.get("titulo", "Evento")))
+	var rotulo := String(ev.get("titulo", "Evento"))
+	if ef.has("rotulo"):
+		rotulo = String(ef["rotulo"])
+	elif ef.has("bem"):
+		rotulo = String(Catalogo.bem(String(ef["bem"])).get("nome", rotulo))
 	var texto := String(esc.get("resultado", ""))
 	var taxa := Economia.imposto(String(ef.get("imposto", "")))
 	var uid := int(p["uid"])

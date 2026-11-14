@@ -559,10 +559,15 @@ func _teste_banco(forcar_arquivo: bool) -> void:
 	var ranking := Database.melhores_partidas()
 	_ok(ranking.size() == 1 and int(ranking[0]["pontuacao"]) == 4321, "partida encerrada entra no histórico")
 	_ok(Database.contar("transacoes") == 5, "contagem de linhas")
+	Database.registrar_transacao({"dia": 6, "categoria": "custo_fixo", "descricao": "Alimentação",
+		"valor": -16.0, "meio": "conta", "saldo_apos": 84.0, "imposto": 2.72})
+	_ok(Database.ultimas_transacoes(10, true).size() == 5, "extrato sem os gastos de rotina")
+	_perto(Database.soma_da_rotina(1), -16.0, "gastos de rotina somados")
+	_perto(Database.soma_da_rotina(7), 0.0, "soma da rotina respeita o dia inicial")
 	# Os dados continuam lá depois de fechar e abrir de novo.
 	Database.abrir("user://teste.db", "user://teste.json", forcar_arquivo)
 	Database.partida_id = id
-	_ok(Database.ultimas_transacoes(10).size() == 5, "dados persistem depois de reabrir")
+	_ok(Database.ultimas_transacoes(10).size() == 6, "dados persistem depois de reabrir")
 	_ok(int(Database.carregar_estado().get("dia_total", 0)) == 42, "estado persiste depois de reabrir")
 	Database.abrir("user://teste.db", "user://teste.json", forcar_arquivo)
 	Database.fechar()
@@ -601,6 +606,8 @@ func _teste_game_manager() -> void:
 	_ok(GameManager.continuar(), "continuar carrega a partida")
 	_ok(GameManager.sim.dia_total == dia, "dia restaurado ao continuar")
 	_perto(GameManager.sim.patrimonio(), patrimonio, "patrimônio restaurado ao continuar")
+	_ok(GameManager.velocidade == 0 and not GameManager.relogio_ativo(), "a partida abre com o tempo parado")
+	GameManager.definir_velocidade(1)
 	GameManager.bloquear_tempo()
 	_ok(not GameManager.relogio_ativo(), "janela aberta pausa o relógio")
 	GameManager.liberar_tempo()

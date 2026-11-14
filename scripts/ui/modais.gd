@@ -115,7 +115,7 @@ static func valor(titulo: String, descricao: String, maximo: float, sugestoes: A
 	for opcao: Variant in opcoes:
 		var v := float(opcao)
 		var e_tudo := is_equal_approx(v, maximo)
-		var b := Kit.botao_pequeno(("Tudo: " if e_tudo else "") + Economia.reais(v, e_tudo), "BotaoNeutro")
+		var b := Kit.botao_pequeno(("Tudo\n" if e_tudo else "") + Economia.reais(v, e_tudo), "BotaoNeutro")
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.pressed.connect(func() -> void:
 			estado["valor"] = v

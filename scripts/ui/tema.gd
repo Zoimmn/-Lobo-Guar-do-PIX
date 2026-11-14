@@ -127,6 +127,13 @@ static func tema() -> Theme:
 	_botao(t, "BotaoVerde", VERDE, Color("155F40"), BRANCO, Color.TRANSPARENT)
 	_botao(t, "BotaoEscuro", Color("3A2519"), Color("4D3324"), BRANCO, Color.TRANSPARENT)
 	_botao(t, "BotaoTexto", Color.TRANSPARENT, Color(0, 0, 0, 0.06), GUARA_ESCURO, Color.TRANSPARENT)
+	# Botões compactos do cabeçalho (velocidade e menu) e das abas.
+	_botao(t, "BotaoHud", Color(1, 1, 1, 0.1), Color(1, 1, 1, 0.22), BRANCO, Color.TRANSPARENT, 8, 6, 16)
+	_botao(t, "BotaoHudAtivo", GUARA, GUARA_ESCURO, BRANCO, Color.TRANSPARENT, 8, 6, 16)
+	_botao(t, "BotaoAba", Color.TRANSPARENT, Color(0, 0, 0, 0.05), TINTA_3, Color.TRANSPARENT, 4, 8, 18)
+	_botao(t, "BotaoAbaAtiva", GUARA_CLARO, GUARA_CLARO, GUARA_ESCURO, Color.TRANSPARENT, 4, 8, 18)
+	for aba: String in ["BotaoAba", "BotaoAbaAtiva", "BotaoHud", "BotaoHudAtivo"]:
+		t.set_font_size("font_size", aba, 19)
 
 	t.set_stylebox("panel", "PanelContainer", StyleBoxEmpty.new())
 	t.set_stylebox("panel", "ScrollContainer", StyleBoxEmpty.new())
@@ -145,13 +152,13 @@ static func tema() -> Theme:
 
 
 static func _botao(t: Theme, tipo: String, fundo: Color, pressionado: Color, texto: Color,
-		borda: Color) -> void:
+		borda: Color, margem_h: int = 26, margem_v: int = 18, raio: int = RAIO_BOTAO) -> void:
 	if tipo != "Button":
 		t.set_type_variation(tipo, "Button")
 	var largura := 2 if borda.a > 0.0 else 0
-	var normal := caixa(fundo, RAIO_BOTAO, borda, largura, 26, 18)
-	var apertado := caixa(pressionado, RAIO_BOTAO, borda, largura, 26, 18)
-	var inativo := caixa(Color("E9E2D7"), RAIO_BOTAO, Color.TRANSPARENT, 0, 26, 18)
+	var normal := caixa(fundo, raio, borda, largura, margem_h, margem_v)
+	var apertado := caixa(pressionado, raio, borda, largura, margem_h, margem_v)
+	var inativo := caixa(Color("E9E2D7"), raio, Color.TRANSPARENT, 0, margem_h, margem_v)
 	t.set_stylebox("normal", tipo, normal)
 	t.set_stylebox("hover", tipo, normal)
 	t.set_stylebox("pressed", tipo, apertado)

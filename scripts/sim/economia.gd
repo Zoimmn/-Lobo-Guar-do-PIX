@@ -16,7 +16,7 @@ const MESES: Array[String] = [
 const MES_INICIAL := 2
 
 # --- Situação inicial ---
-const SALDO_INICIAL := 300.0
+const SALDO_INICIAL := 600.0
 
 # --- Custos fixos de vida ---
 const MORADIA := 600.0

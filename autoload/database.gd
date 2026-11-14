@@ -84,6 +84,9 @@ const ESQUEMA: Array[String] = [
 	"CREATE INDEX IF NOT EXISTS idx_decisoes_partida ON telemetria_decisoes (partida_id, id);",
 ]
 
+## Gastos de todo dia: ficam gravados, mas o extrato os mostra somados.
+const ROTINA: Array[String] = ["Alimentação", "Transporte"]
+
 const TABELAS_ARQUIVO: Array[String] = [
 	"partidas", "transacoes", "inventario_bens", "log_estresse", "telemetria_decisoes",
 ]
@@ -300,22 +303,47 @@ func registrar_vacina(id: String) -> void:
 # ---------------------------------------------------------------------------
 
 ## Últimas transações da partida atual, da mais nova para a mais antiga.
-func ultimas_transacoes(limite: int = 40) -> Array:
+## [param sem_rotina] deixa de fora os gastos de todo dia (ver ROTINA).
+func ultimas_transacoes(limite: int = 40, sem_rotina: bool = false) -> Array:
 	if partida_id <= 0:
 		return []
 	if usando_sqlite:
+		var filtro := ""
+		if sem_rotina:
+			filtro = " AND descricao NOT IN ('%s')" % "', '".join(ROTINA)
 		_db.query_with_bindings(
-			"SELECT dia, categoria, descricao, valor, meio, saldo_apos, imposto_embutido FROM transacoes WHERE partida_id = ? ORDER BY id DESC LIMIT ?;",
+			"SELECT dia, categoria, descricao, valor, meio, saldo_apos, imposto_embutido FROM transacoes WHERE partida_id = ?%s ORDER BY id DESC LIMIT ?;" % filtro,
 			[partida_id, limite])
 		return (_db.query_result as Array).duplicate(true)
 	var lista: Array = []
 	var tabela: Array = _arquivo["transacoes"]
 	for i in range(tabela.size() - 1, -1, -1):
-		if int(tabela[i]["partida_id"]) == partida_id:
-			lista.append(tabela[i])
-			if lista.size() >= limite:
-				break
+		var linha: Dictionary = tabela[i]
+		if int(linha["partida_id"]) != partida_id:
+			continue
+		if sem_rotina and ROTINA.has(String(linha["descricao"])):
+			continue
+		lista.append(linha)
+		if lista.size() >= limite:
+			break
 	return lista
+
+
+## Soma dos gastos de rotina (alimentação e transporte) a partir de um dia.
+func soma_da_rotina(desde_o_dia: int) -> float:
+	if partida_id <= 0:
+		return 0.0
+	if usando_sqlite:
+		_db.query_with_bindings(
+			"SELECT COALESCE(SUM(valor), 0) AS total FROM transacoes WHERE partida_id = ? AND dia >= ? AND descricao IN ('%s');" % "', '".join(ROTINA),
+			[partida_id, desde_o_dia])
+		return float((_db.query_result as Array)[0]["total"])
+	var total := 0.0
+	for linha: Variant in _arquivo["transacoes"]:
+		if int(linha["partida_id"]) == partida_id and int(linha["dia"]) >= desde_o_dia \
+				and ROTINA.has(String(linha["descricao"])):
+			total += float(linha["valor"])
+	return total
 
 
 ## Série diária de estresse e patrimônio da partida atual, em ordem de dia.

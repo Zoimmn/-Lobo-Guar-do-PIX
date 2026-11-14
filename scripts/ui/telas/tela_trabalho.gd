@@ -159,6 +159,8 @@ func _vagas(sim: Simulacao) -> void:
 					"pequeno_forte", Tema.AZUL))
 			continue
 		var motivo := sim.motivo_sem_candidatura(id)
+		if motivo.begins_with("Falta"):
+			motivo = "Faltam requisitos"
 		var b := Kit.botao_pequeno("Enviar currículo" if motivo == "" else motivo, "BotaoSuave",
 				func() -> void: acao(&"candidatar", [id]))
 		b.disabled = motivo != ""

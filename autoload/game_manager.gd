@@ -144,11 +144,13 @@ func _criar_simulacao() -> void:
 	sim.encerrada.connect(_ao_encerrar)
 
 
+## Toda partida abre com o tempo parado: o jogador olha a situação com calma
+## e põe o relógio para andar quando quiser.
 func _reiniciar_relogio() -> void:
 	_acumulado = 0.0
 	progresso_dia = 0.0
 	_bloqueios = 0
-	definir_velocidade(1)
+	definir_velocidade(0)
 
 
 # ---------------------------------------------------------------------------
