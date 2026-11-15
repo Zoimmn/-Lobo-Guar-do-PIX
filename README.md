@@ -41,6 +41,17 @@ Para garantir a democratização do acesso e o funcionamento estável em disposi
 
 ---
 
+## 📸 Telas
+
+<p>
+  <img src="docs/telas/inicio.png" alt="Tela inicial com saldo, metas e próximos vencimentos" width="190">
+  <img src="docs/telas/evento_com_relogio.png" alt="Evento com relógio: golpe da falsa central" width="190">
+  <img src="docs/telas/resultado_vacina.png" alt="Resultado de um golpe com a vacina cognitiva" width="190">
+  <img src="docs/telas/relatorio.png" alt="Relatório com gráfico de patrimônio e estresse" width="190">
+</p>
+
+O documento de design completo está em [`docs/GDD.md`](docs/GDD.md).
+
 ## 🎮 Estado atual
 
 **Versão 0.1.0: primeira versão jogável.** O jogador começa como entregador de aplicativo, com R$ 600 na conta, e precisa juntar uma reserva de emergência de seis meses do custo de vida. No caminho:
