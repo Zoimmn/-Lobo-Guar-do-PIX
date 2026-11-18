@@ -1,5 +1,9 @@
 # 🐺 Lobo-Guará do PIX
 
+[![CI](https://github.com/Zoimmn/-Lobo-Guar-do-PIX/actions/workflows/ci.yml/badge.svg)](https://github.com/Zoimmn/-Lobo-Guar-do-PIX/actions/workflows/ci.yml)
+
+**[📲 Baixar o APK (Android)](https://github.com/Zoimmn/-Lobo-Guar-do-PIX/releases/latest/download/LoboGuaraDoPIX.apk)** · [Todas as versões](https://github.com/Zoimmn/-Lobo-Guar-do-PIX/releases)
+
 > **Simulador Digital de Economia Comportamental baseado na Realidade Socioeconômica Brasileira**
 
 ---
@@ -77,16 +81,34 @@ O documento de design completo está em [`docs/GDD.md`](docs/GDD.md).
 **Pela linha de comando (Linux):**
 
 ```bash
-sudo bash ferramentas/preparar_ambiente.sh
+bash ferramentas/preparar_ambiente.sh
 ```
 
 ```bash
 bash ferramentas/construir_apk.sh
 ```
 
-O segundo comando roda os testes e grava `build/LoboGuaraDoPIX.apk`, assinado com a chave de depuração do projeto (`ferramentas/android/lobo-guara-debug.keystore`). Essa chave existe só para que todas as versões de teste tenham a mesma assinatura; não serve para publicar em loja.
+O primeiro comando pede a senha de administrador (sudo) só para instalar pacotes do sistema. O segundo roda os testes e grava `build/LoboGuaraDoPIX.apk`, assinado com a chave de depuração do projeto (`ferramentas/android/lobo-guara-debug.keystore`). Essa chave existe só para que todas as versões de teste tenham a mesma assinatura; não serve para publicar em loja.
 
 O APK inclui Android de 64 e de 32 bits. O plugin de SQLite só tem binário para 64 bits: em aparelhos de 32 bits o jogo funciona igual, mas grava os mesmos dados em um arquivo JSON. A tela de título mostra qual mecanismo está em uso.
+
+## ⚙️ Integração contínua (GitHub Actions)
+
+O pipeline fica em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) e roda sozinho a cada push e pull request:
+
+1. prepara uma máquina Linux com o Godot 4.7.2 e os modelos de Android (guardados em cache entre execuções);
+2. roda os testes automáticos com os bots (`-- --bots`); se algo falhar, para aqui;
+3. gera e assina o APK com `ferramentas/construir_apk.sh` e o guarda como artefato da execução (aba **Actions**, por 30 dias).
+
+Quando recebe uma tag de versão (`v0.1.0`, `v0.2.0`...), publica também uma **Release** com o arquivo `LoboGuaraDoPIX.apk`. O link [`releases/latest/download/LoboGuaraDoPIX.apk`](https://github.com/Zoimmn/-Lobo-Guar-do-PIX/releases/latest/download/LoboGuaraDoPIX.apk) sempre baixa a versão mais recente. Para lançar uma versão nova:
+
+```bash
+git tag v0.1.0
+```
+
+```bash
+git push origin v0.1.0
+```
 
 ## 🧩 Estrutura do projeto
 
@@ -100,6 +122,7 @@ O APK inclui Android de 64 e de 32 bits. O plugin de SQLite só tem binário par
 | `recursos/` | Fontes, ícones e logo |
 | `testes/` | Testes automáticos, bots de calibração e roteiro de capturas de tela |
 | `ferramentas/` | Scripts de build e a chave de depuração do Android |
+| `.github/workflows/` | Pipeline de CI/CD (testes, APK e Release) |
 | `addons/godot-sqlite/` | Plugin de SQLite (GDExtension) |
 
 ## 🔧 Onde ajustar o jogo

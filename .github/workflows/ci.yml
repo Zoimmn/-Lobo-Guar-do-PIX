@@ -1,0 +1,110 @@
+# Pipeline de integração contínua do Lobo-Guará do PIX.
+#
+# O que ele faz:
+#   1. Em todo push e pull request: roda os testes automáticos e gera o APK,
+#      que fica disponível para download na página da execução (artefato).
+#   2. Quando chega uma tag que começa com "v" (ex.: v0.1.0): além disso,
+#      publica uma Release no GitHub com o arquivo LoboGuaraDoPIX.apk anexado.
+
+name: CI
+
+# Quando o pipeline roda.
+on:
+  push:
+    branches: ["**"]   # push em qualquer branch
+    tags: ["v*"]       # e em tags de versão, como v0.1.0
+  pull_request:        # pull requests abertos para o repositório
+  workflow_dispatch:   # botão "Run workflow" na aba Actions, para rodar à mão
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1: testes e geração do APK
+  # ---------------------------------------------------------------------------
+  testes-e-apk:
+    name: Testes e APK
+    runs-on: ubuntu-latest   # máquina virtual Linux do próprio GitHub
+    timeout-minutes: 30      # se travar, o GitHub encerra em 30 minutos
+
+    steps:
+      # Baixa o código do repositório para a máquina virtual.
+      - name: Baixar o código
+        uses: actions/checkout@v7
+
+      # Guarda o Godot e os modelos de exportação entre execuções. É a parte
+      # lenta (centenas de megabytes de download); com o cache, só a primeira execução
+      # baixa. A chave tem a versão do Godot: trocou a versão, baixa de novo.
+      - name: Cache do Godot 4.7.2
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.local/share/godot/editor
+            ~/.local/share/godot/export_templates
+          key: godot-4.7.2-android-${{ runner.os }}
+
+      # Instala o Godot (se não veio do cache), os modelos de exportação e as
+      # ferramentas de assinatura. É o mesmo script usado para montar a
+      # máquina de desenvolvimento.
+      - name: Preparar o ambiente
+        run: bash ferramentas/preparar_ambiente.sh
+
+      # O Godot precisa "importar" o projeto antes de rodar. Num checkout novo
+      # a primeira importação encerra com erro por causa do plugin de SQLite
+      # (o "|| true" ignora esse erro); a segunda conclui normalmente.
+      - name: Importar o projeto
+        run: |
+          godot --headless --path . --import || true
+          godot --headless --path . --import
+
+      # Roda a suíte de testes sem janela (--headless). Com --bots, jogadores
+      # simulados também jogam partidas completas para conferir o equilíbrio.
+      # Se alguma verificação falhar, o Godot sai com código 1 e o pipeline
+      # para aqui, sem gerar o APK.
+      - name: Rodar os testes
+        run: godot --headless --path . res://testes/testes.tscn -- --bots
+
+      # Gera build/LoboGuaraDoPIX.apk, assina com a chave de depuração do
+      # projeto e confere a assinatura com o apksigner.
+      - name: Gerar o APK
+        run: bash ferramentas/construir_apk.sh
+
+      # Anexa o APK à execução, para baixar pela aba Actions. Fica guardado
+      # por 30 dias. Se o arquivo não existir, o passo falha.
+      - name: Guardar o APK como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: LoboGuaraDoPIX-apk
+          path: build/LoboGuaraDoPIX.apk
+          if-no-files-found: error
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Job 2: publicação da Release (só em tags v*)
+  # ---------------------------------------------------------------------------
+  release:
+    name: Publicar Release
+    needs: testes-e-apk                         # só roda se o job 1 passou
+    if: startsWith(github.ref, 'refs/tags/v')   # só em tags v*
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # permissão para criar a Release no repositório
+
+    steps:
+      # Pega o APK que o job 1 gerou (cada job roda em uma máquina separada).
+      - name: Baixar o APK do job anterior
+        uses: actions/download-artifact@v8
+        with:
+          name: LoboGuaraDoPIX-apk
+
+      # Cria a Release com o nome da tag e anexa o APK com o nome exato
+      # LoboGuaraDoPIX.apk. Assim o link fixo
+      # .../releases/latest/download/LoboGuaraDoPIX.apk sempre aponta para a
+      # versão mais recente. O "gh" é a linha de comando do GitHub, que já vem
+      # instalada na máquina; o token é gerado automaticamente a cada execução.
+      - name: Criar a Release com o APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" LoboGuaraDoPIX.apk \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "Lobo-Guará do PIX ${GITHUB_REF_NAME}" \
+            --generate-notes

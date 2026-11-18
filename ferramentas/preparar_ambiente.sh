@@ -3,22 +3,32 @@
 # linha de comando, sem abrir o editor. Instala o Godot 4.7.2, os modelos de
 # exportação para Android e as ferramentas de assinatura.
 #
-# Uso: sudo bash ferramentas/preparar_ambiente.sh
+# Uso: bash ferramentas/preparar_ambiente.sh
+#
+# Rode com o seu usuário normal: o script pede "sudo" só nos passos que mexem
+# no sistema. O Godot e os modelos ficam na sua pasta pessoal
+# (~/.local/share/godot), que é a mesma que o pipeline do GitHub guarda em cache.
 set -euo pipefail
 
 VERSAO="4.7.2"
 BASE="https://github.com/godotengine/godot/releases/download/${VERSAO}-stable"
-DESTINO="/opt/godot"
-MODELOS="${HOME}/.local/share/godot/export_templates/${VERSAO}.stable"
+PASTA_GODOT="${HOME}/.local/share/godot"
+EDITOR="${PASTA_GODOT}/editor/Godot_v${VERSAO}-stable_linux.x86_64"
+MODELOS="${PASTA_GODOT}/export_templates/${VERSAO}.stable"
 
-# 1. Editor do Godot (binário único)
-if ! command -v godot >/dev/null 2>&1; then
-	mkdir -p "${DESTINO}/editor"
+# Comandos de administrador: com "sudo" se não estivermos rodando como root.
+SUDO=""
+if [ "$(id -u)" -ne 0 ]; then SUDO="sudo"; fi
+
+# 1. Editor do Godot (binário único). Se já estiver na pasta (por exemplo,
+#    restaurado do cache), só cria o atalho "godot".
+if [ ! -x "${EDITOR}" ]; then
+	mkdir -p "$(dirname "${EDITOR}")"
 	curl -fsSL --retry 3 -o /tmp/godot.zip "${BASE}/Godot_v${VERSAO}-stable_linux.x86_64.zip"
-	unzip -q -o /tmp/godot.zip -d "${DESTINO}/editor"
-	ln -sf "${DESTINO}/editor/Godot_v${VERSAO}-stable_linux.x86_64" /usr/local/bin/godot
+	unzip -q -o /tmp/godot.zip -d "$(dirname "${EDITOR}")"
 	rm -f /tmp/godot.zip
 fi
+${SUDO} ln -sf "${EDITOR}" /usr/local/bin/godot
 
 # 2. Modelos de exportação: só os arquivos do Android
 if [ ! -f "${MODELOS}/android_release.apk" ]; then
@@ -30,17 +40,20 @@ if [ ! -f "${MODELOS}/android_release.apk" ]; then
 fi
 
 # 3. Assinatura do APK, tela virtual e Java
-DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+${SUDO} env DEBIAN_FRONTEND=noninteractive apt-get update -qq
+${SUDO} env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
 	apksigner zipalign aapt xvfb default-jre-headless >/dev/null
 
-# 4. Pasta no formato de SDK que o Godot espera. O "adb" é só um marcador:
-#    ele serve para instalar direto no celular por cabo, o que não é usado aqui.
+# 4. Pasta no formato de SDK que o Godot espera, para máquinas sem o Android
+#    SDK. O "adb" é só um marcador: ele serve para instalar direto no celular
+#    por cabo, o que não é usado aqui. Se a variável ANDROID_HOME já apontar
+#    para um SDK de verdade (como nos servidores do GitHub), ele é usado no lugar.
 SDK="/opt/android-sdk"
-mkdir -p "${SDK}/platform-tools" "${SDK}/build-tools/34.0.0"
-printf '#!/bin/sh\nexit 0\n' > "${SDK}/platform-tools/adb"
-chmod +x "${SDK}/platform-tools/adb"
-ln -sf /usr/bin/apksigner "${SDK}/build-tools/34.0.0/apksigner"
-ln -sf /usr/bin/zipalign "${SDK}/build-tools/34.0.0/zipalign"
+${SUDO} mkdir -p "${SDK}/platform-tools" "${SDK}/build-tools/34.0.0"
+printf '#!/bin/sh\nexit 0\n' | ${SUDO} tee "${SDK}/platform-tools/adb" >/dev/null
+${SUDO} chmod +x "${SDK}/platform-tools/adb"
+${SUDO} ln -sf /usr/bin/apksigner "${SDK}/build-tools/34.0.0/apksigner"
+${SUDO} ln -sf /usr/bin/zipalign "${SDK}/build-tools/34.0.0/zipalign"
 
 godot --headless --version
 echo "Ambiente pronto. Gere o APK com: bash ferramentas/construir_apk.sh"
