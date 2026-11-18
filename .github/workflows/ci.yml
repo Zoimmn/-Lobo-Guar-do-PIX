@@ -22,7 +22,7 @@ jobs:
   # ---------------------------------------------------------------------------
   testes-e-apk:
     name: Testes e APK
-    runs-on: ubuntu-latest   # máquina virtual Linux do próprio GitHub
+    runs-on: ubuntu-24.04    # máquina virtual Linux do próprio GitHub (Ubuntu 24.04)
     timeout-minutes: 30      # se travar, o GitHub encerra em 30 minutos
 
     steps:
@@ -84,7 +84,7 @@ jobs:
     name: Publicar Release
     needs: testes-e-apk                         # só roda se o job 1 passou
     if: startsWith(github.ref, 'refs/tags/v')   # só em tags v*
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write   # permissão para criar a Release no repositório
 
